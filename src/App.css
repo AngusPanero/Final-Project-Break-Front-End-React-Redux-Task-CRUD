@@ -1,3 +1,88 @@
 body{
-    background-color: lightslategray
+    padding: 0px;
+    margin: 0px;
+}
+
+.default{
+    background-color: lightslategray;
+}
+
+.blue {
+    min-width: 320px;
+    min-height: 100vh;
+    background: linear-gradient(45deg, #1e3a8a, #2563eb, #3b82f6);
+    background-size: 600% 600%;
+    animation: blueAnimation 4s ease infinite;
+}
+
+@keyframes blueAnimation {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.purple {
+    min-width: 320px;
+    min-height: 100vh;
+    background: linear-gradient(45deg, #6a0dad, #8e44ad, #b983ff);
+    background-size: 600% 600%;
+    animation: purpleAnimation 4s ease infinite;
+}
+
+@keyframes purpleAnimation {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.light {
+    min-width: 320px;
+    min-height: 100vh;
+    background: linear-gradient(45deg, #e1f7ea, #d9eef2, #b0f3e1);
+    background-size: 600% 600%;
+    animation: lightAnimation 4s ease infinite;
+}
+
+@keyframes lightAnimation {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.dark {
+    min-width: 320px;
+    min-height: 100vh;
+    background: linear-gradient(45deg, #0d0d0d, #1a1a1a, #2a2a2a);
+    background-size: 600% 600%;
+    animation: darkAnimation 4s ease infinite;
+}
+
+@keyframes darkAnimation {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
 }

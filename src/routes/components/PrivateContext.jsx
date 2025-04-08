@@ -11,9 +11,9 @@ export const AuthProvider = ({ children }) => {
         setUser(userData)
     }
 
-    const logout = () => {
+    const logout = async () => {
         setUser(null)
-        axios.post("http://localhost:2105/logout", {}, { withCredentials: true });
+        await axios.post("http://localhost:2105/logout", {}, { withCredentials: true });
     }
 
     useEffect(() => {
@@ -34,6 +34,7 @@ export const AuthProvider = ({ children }) => {
         validateSession();
     }, []);
 
+    if (loading) return <h1>Cargando sesión...</h1>
     return( // Proveemos con user, y las funciones de login y logout
         <>
             <AuthContext.Provider value={{ user, login, logout, loading }}> 
