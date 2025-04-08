@@ -1,9 +1,14 @@
 import { useState } from "react"
 import { useNavigate, Link } from "react-router-dom"
 import axios from "axios"
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth"
+import useAuth from "./PrivateContext";
+import { app } from "../../firebase/config"
 
 const Login = () => {
     const navigate = useNavigate()
+    const { login } = useAuth()
+    const auth = getAuth()
 
     const [ email, setEmail ] = useState("");
     const [ password, setPassword ] = useState("");
@@ -15,23 +20,36 @@ const Login = () => {
 
         try {
             setLoading(true)
-            const response = await axios.post("http://localhost:2105/login", { email, password })
+
+            const userCredential = await signInWithEmailAndPassword(auth, email, password);
+            const user = userCredential.user;
+
+            const idToken = await user.getIdToken();
+
+            const response = await axios.post(
+                "http://localhost:2105/login",
+                { idToken },
+                { withCredentials: true }
+            )
 
             if(response.data.success){
+                login(user)
                 navigate("/dashboard")
             } else {
-                alert("Error in Login!")
+                alert("Error en el login")
             }
 
         } catch (error) {
             setError(true)
+            console.log("ERROR", error);
+            
         } finally {
             setLoading(false)
         }
     }
 
-    if(error) return <h1>Request Error</h1>
-    if(loading) return <h1>Registering User...</h1>
+    if(error) return <h1>Email o Password Incorrectos</h1>
+    if(loading) return <h1>Loging In...</h1>
 
     return(
             <div className="login-register-div">
