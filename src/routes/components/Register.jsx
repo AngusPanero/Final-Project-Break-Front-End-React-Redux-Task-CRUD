@@ -1,6 +1,9 @@
 import { useState } from "react"
 import { useNavigate, Link } from "react-router-dom"
 import axios from "axios"
+import imgRegister from "../../assets/sin-fondo-register-2p.m..png"
+import logo from "../../assets/DeepDev Logo.png"
+import "../../../src/Register.css"
 
 const Register = () => {
     const navigate = useNavigate()
@@ -34,21 +37,31 @@ const Register = () => {
     if(loading) return <h1>Registering User...</h1>
 
     return(
-            <div className="login-register-div">
-                <h1>Create Your Profile</h1>
 
-                <form onSubmit={handleSubmit} className="login-register-form">
+            <div className="register-view">
 
-                    <input type="email" value={email} id="email" onChange={(e) => setEmail(e.target.value) } placeholder="email" required/>
-                    <input type="password" value={password} id="password" onChange={(e) => setPassword(e.target.value) } placeholder="password" required/>
+                <div className="div-img">
+                    <img className="image-register" src={imgRegister} alt="image-register" />
+                </div>
 
-                    <button type="submit">Register</button>
+                <div className="login-register-div">
+                <img className="logo" src={logo} alt="Logo-DeepDev" />
+                    <h1>Registrá tu Nuevo Perfil</h1>
 
-                </form>
+                    <form onSubmit={handleSubmit} className="login-register-form">
 
-                <div>
-                    <Link to="/"><h2>Are you Already Registered?</h2> </Link> 
-                </div>    
+                        <input type="email" value={email} id="email" onChange={(e) => setEmail(e.target.value) } placeholder="email" required/>
+                        <input type="password" value={password} id="password" onChange={(e) => setPassword(e.target.value) } placeholder="password" required/>
+
+                        <button className="register-button" type="submit">Register</button>
+
+                    </form>
+
+                    <div>
+                        <Link to="/"><h2>¿Ya Estás Registrado?</h2> </Link> 
+                    </div>    
+                    <footer>© 2025 DeepDev. Todos los derechos reservados. Valencia - España</footer>
+                </div>
             </div>
     )
 }

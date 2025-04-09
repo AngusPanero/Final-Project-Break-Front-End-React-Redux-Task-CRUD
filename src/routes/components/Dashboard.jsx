@@ -1,7 +1,9 @@
 import useAuth from "./PrivateContext"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, Link } from "react-router-dom"
 import { useState } from "react"
 import menuHam from "../../assets/menuhamburguesas.png"
+import logo from "../../assets/DeepDev Logo.png"
+import wp from "../../../src/assets/wp.png"
 import "../../../src/dashboard.css"
 import useTheme from "../../../themeContext/ThemeContext"
 
@@ -23,27 +25,34 @@ const Dashboard = () => {
     return (
         <>
             <nav className={`nav-${theme}`}>
+                <img className="logo-nav" src={logo} alt="Logo-DeepDev" />  
+            
                 <button className="logout" onClick={handleLogout}>Cerrar sesión</button>
                 <button onClick={toogleMenu}><img className="menu-hamburguesa" src={menuHam} alt="menu-icon" /></button>
                 
-                <div className={`menu-desplegable ${menu ? `open` : ""}`}>
+                <div className={`menu-desplegable ${menu ? `open-${theme}` : ""}`}>
                     <ul className={`ul-menu`}>
                         <button onClick={toogleMenu}><img className="menu-hamburguesa" src={menuHam} alt="menu-icon" /></button>
-                        <h4>Temas</h4>
+                        <button ><li><strong>Temas</strong></li></button>
                         <button onClick={() => themeSelector("default")}><li>Default</li></button>
                         <button onClick={() => themeSelector("dark")}><li>Dark</li></button>
                         <button onClick={() => themeSelector("light")}><li>Light</li></button>
                         <button onClick={() => themeSelector("blue")}><li>Blue</li></button>
                         <button onClick={() => themeSelector("purple")}><li>Purple</li></button>
+                        <button onClick={() => themeSelector("green")}><li>Green</li></button>
                     </ul>
                 </div>
             </nav>
 
-            <div>
-                <h1>Bienvenido al Dashboard</h1>
+            <div className="mainContainer">
+                <div className="taskContainer">
+                    <h1>Bienvenido al Dashboard</h1>
 
-                
-            </div>
+                    
+                </div>
+                <footer className="footer-dashboard">© 2025 DeepDev. Todos los derechos reservados. Valencia - España</footer>
+                <Link to={import.meta.env.VITE_WHATSAPP} target="_blank"><img className="logo-wp" src={wp} alt="logo-whatsApp"/></Link>
+            </div>    
         </>
         
     )

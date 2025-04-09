@@ -12,6 +12,13 @@
     background-color: #0d0d0d;
 }
 
+.nav-green{
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    background-color: #b3f5d9;
+}
+
 .nav-purple{
     display: flex;
     justify-content: flex-end;
@@ -43,6 +50,7 @@
 }
 
 button{
+    width: 8rem;
     cursor: pointer;
     border: none;
     background-color: transparent;
@@ -56,20 +64,22 @@ button{
     transition: opacity 0.7s ease, visibility 0.7s ease;
 }
 
-.menu-desplegable.open{
-    opacity: 1;
-    visibility: visible;
-    display: flex;
-    background-color: rgb(81, 104, 128);
-    margin: 0px;
-    transition: opacity 0.7s ease, visibility 0.7s ease;
-}
-/* 
 .menu-desplegable.open-blue{
     opacity: 1;
     visibility: visible;
     display: flex;
+    height: 25rem;
     background-color: #1e3a8a;
+    margin: 0px;
+    transition: opacity 0.7s ease, visibility 0.7s ease;
+}
+
+.menu-desplegable.open-green{
+    opacity: 1;
+    visibility: visible;
+    display: flex;
+    height: 25rem;
+    background-color: #b3f5d9;
     margin: 0px;
     transition: opacity 0.7s ease, visibility 0.7s ease;
 }
@@ -78,6 +88,7 @@ button{
     opacity: 1;
     visibility: visible;
     display: flex;
+    height: 25rem;
     background-color: #0d0d0d;
     margin: 0px;
     transition: opacity 0.7s ease, visibility 0.7s ease;
@@ -87,6 +98,7 @@ button{
     opacity: 1;
     visibility: visible;
     display: flex;
+    height: 25rem;
     background-color: #e1f7ea;
     margin: 0px;
     transition: opacity 0.7s ease, visibility 0.7s ease;
@@ -96,10 +108,21 @@ button{
     opacity: 1;
     visibility: visible;
     display: flex;
+    height: 25rem;
     background-color: #6a0dad;
     margin: 0px;
     transition: opacity 0.7s ease, visibility 0.7s ease;
-}*/
+}
+
+.menu-desplegable.open-default{
+    opacity: 1;
+    visibility: visible;
+    display: flex;
+    height: 25rem;
+    background-color: rgb(81, 104, 128);
+    margin: 0px;
+    transition: opacity 0.7s ease, visibility 0.7s ease;
+}
 
 .ul-menu{
     margin: 0%;
@@ -108,5 +131,44 @@ button{
     list-style-type: none;
     display: flex;
     flex-direction: column;
-    align-items: end;
 } 
+
+strong{
+    font-size: 1.2rem;
+    text-decoration: underline;
+}
+
+.logo-nav{
+    position: relative;
+    top: .8rem;
+    right: 90rem;
+    height: 2rem;
+    width: auto;
+}
+
+.mainContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo-wp{
+    width: 5rem;
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+}
+
+.footer-dashboard{
+    position: fixed;
+    bottom: 2rem;
+    z-index: 1;
+}
+
+.taskContainer{
+    display: flex;
+    justify-content: center;
+    height: 50rem;
+    width: 100rem;
+}

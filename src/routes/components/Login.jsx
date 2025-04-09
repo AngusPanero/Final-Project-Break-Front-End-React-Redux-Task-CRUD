@@ -3,6 +3,9 @@ import { useNavigate, Link } from "react-router-dom"
 import axios from "axios"
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth"
 import useAuth from "./PrivateContext";
+import imgLogin from "../../assets/sin-fondo-register-2p.m..png"
+import logo from "../../assets/DeepDev Logo.png"
+import "../../../src/Login.css"
 import { app } from "../../firebase/config"
 
 const Login = () => {
@@ -52,21 +55,29 @@ const Login = () => {
     if(loading) return <h1>Loging In...</h1>
 
     return(
+        <div className="login-view">
+
+            <div className="div-img">
+                <img className="image-login" src={imgLogin} alt="image.login" />
+            </div>    
+
             <div className="login-register-div">
-                <h1>Please log in to go to the Dashboard</h1>
-
+                <img className="logo" src={logo} alt="Logo-DeepDev" />
+                <h1>Bienvenido! Inicia tu Sesión</h1>
                 <form onSubmit={handleSubmit} className="login-register-form">
-
                     <input type="email" value={email} id="email" onChange={(e) => setEmail(e.target.value) } placeholder="email" required/>
                     <input type="password" value={password} id="password" onChange={(e) => setPassword(e.target.value) } placeholder="password" required/>
-
-                    <button type="submit">Login</button>
-
+                    <button className="login-button" type="submit">Login</button>
                 </form>
+
                 <div>
-                    <Link to="/register"><h2>Not Registered?</h2> </Link> 
+                    <Link to="/register"><h2>¿Nuevo Usuario?</h2> </Link> 
                 </div>
+                <footer>© 2025 DeepDev. Todos los derechos reservados. Valencia - España</footer>
             </div>
+
+        </div>
+            
     )
 }
 
