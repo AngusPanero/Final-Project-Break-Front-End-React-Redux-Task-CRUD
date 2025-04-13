@@ -6,9 +6,12 @@ const AuthContext = createContext()
 export const AuthProvider = ({ children }) => {
     const [ user, setUser ] = useState(null) // aca guardamos el usuario autenticado
     const [loading, setLoading] = useState(false);
+    const [password, setPassword] = useState("");
 
     const login = (userData) => {
         setUser(userData)
+        setPassword(userData.email);
+        console.log("USER DATA", userData);
     }
 
     const logout = async () => {
@@ -16,7 +19,7 @@ export const AuthProvider = ({ children }) => {
         await axios.post("http://localhost:2105/logout", {}, { withCredentials: true });
     }
 
-    useEffect(() => {
+ /*    useEffect(() => {
         const validateSession = async () => {
             try {
                 setLoading(true)
@@ -32,12 +35,12 @@ export const AuthProvider = ({ children }) => {
         };
 
         validateSession();
-    }, []);
+    }, []); */
 
     if (loading) return <h1>Cargando sesión...</h1>
     return( // Proveemos con user, y las funciones de login y logout
         <>
-            <AuthContext.Provider value={{ user, login, logout, loading }}> 
+            <AuthContext.Provider value={{ user, login, logout, loading, password }}> 
                 {children}
             </AuthContext.Provider>
         </>

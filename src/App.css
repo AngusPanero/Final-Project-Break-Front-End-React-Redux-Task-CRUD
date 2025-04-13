@@ -11,7 +11,7 @@ body{
 .blue {
     min-width: 320px;
     min-height: 100vh;
-    background: linear-gradient(45deg, #4e64cf, #3973f0, #5677c0); /* Azules ajustados */
+    background: linear-gradient(45deg, #3c4da5, #3973f0, #5677c0); /* Azules ajustados */
     background-size: 600% 600%;
     animation: blueAnimation 7s ease infinite;
 }
