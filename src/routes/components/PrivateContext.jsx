@@ -19,7 +19,7 @@ export const AuthProvider = ({ children }) => {
         await axios.post("http://localhost:2105/logout", {}, { withCredentials: true });
     }
 
- /*    useEffect(() => {
+/*    useEffect(() => {
         const validateSession = async () => {
             try {
                 setLoading(true)

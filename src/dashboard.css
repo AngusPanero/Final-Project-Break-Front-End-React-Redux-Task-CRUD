@@ -196,3 +196,15 @@ form{
     width: 15rem;
     height: .7rem;
 }
+
+.open-modal{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: .7rem;
+    margin-top: 1rem;
+}
+
+.input-task-form{
+    height: .7rem;
+}
