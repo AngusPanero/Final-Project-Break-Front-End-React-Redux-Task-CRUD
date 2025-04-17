@@ -30,6 +30,31 @@ export const postTask = createAsyncThunk( // uso Thunk porque asi se maneja la a
     }
 )
 
+/* export const readTasks = createAsyncThunk(
+    "readTasks",
+    async(_, { rejectWithValue }) => {
+        try {
+            const currentUser = auth.currentUser;
+            if (!currentUser) {
+                return rejectWithValue("Usuario no Autenticado");
+            }
+            const token = await currentUser.getIdToken();
+            console.log("TOKEN READ TASKS", token);
+            const response = await axios.get("http://localhost:2105/read", {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    'Content-Type': 'application/json' 
+                }
+            })
+            console.log("Respuesta Read Tasks", response.data);
+            
+            return response.data
+        } catch (error) {
+            return rejectWithValue(error.message || "Error en la Solicitud")
+        }
+    }
+) */
+
 //CRUD CONTAINERS
 export const createContainer = createAsyncThunk(
     "createContainer",
@@ -54,7 +79,54 @@ export const createContainer = createAsyncThunk(
         }
     }
 )
+export const readContainers = createAsyncThunk(
+    "readContainers",
+    async(_, {rejectWithValue})  => { //acá pongo un guion bajo ya que el reject tiene que ser 2do parametro 
+        try {
+            const currentUser = auth.currentUser
+            if(!currentUser){
+                return rejectWithValue("Usuario no Autenticado")
+            }
+            const token = await currentUser.getIdToken()
+            console.log("TOKEN READ CONTAINER", token);
+            
+            const response = await axios.get("http://localhost:2105/readContainers", {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            })
+            console.log("Respuesta de Contenedores", response.data);
+            
+            return response.data
+        } catch (error) {
+            return rejectWithValue(error.message || "Error en la Solicitud")
+        }
+    })
 
+export const deleteContainer = createAsyncThunk(
+    "deleteContainer",
+    async(id, { rejectWithValue }) => {
+        try {
+            const currentUser = auth.currentUser
+            if(!currentUser){
+                return rejectWithValue("Usuario no Autenticado")
+            }
+            const token = await currentUser.getIdToken()
+            console.log("TOKEN DELETE CONTAINER", token)
+
+            const response = await axios.delete(`http://localhost:2105/deleteContainer/${id}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            })
+            return response.data
+        } catch (error) {
+            return rejectWithValue(error.message || "Error en la Solicitud")
+        }
+    }
+)
 
 const taskSlice = createSlice({
     name: "taskSlice",
@@ -69,6 +141,7 @@ const taskSlice = createSlice({
     }, 
     extraReducers: (actualState) => { // extraReducers para cuando tengo que hacer asincronía
         actualState
+            //CREATE TASK STATES
             .addCase(postTask.pending, (state) => {
                 state.status = "loading";
             })
@@ -82,6 +155,21 @@ const taskSlice = createSlice({
                 state.error = action.payload
             })
 
+            //READ TASKS STATES
+            /* .addCase(readTasks.pending, (state) => {
+                state.status = "loading";
+            })
+            .addCase(readTasks.fulfilled, (state, action) => {
+                console.log("Contenedor Creado:", action.payload);
+                state.status = "succeeded";
+                state.containersArray = action.payload;
+            })
+            .addCase(readTasks.rejected, (state, action) => {
+                state.status = "failed";
+                state.error = action.payload
+            }) */
+
+            //CREATE CONTAINER STATES
             .addCase(createContainer.pending, (state) => {
                 state.status = "loading";
             })
@@ -91,6 +179,34 @@ const taskSlice = createSlice({
                 state.containersArray.push(action.payload);
             })
             .addCase(createContainer.rejected, (state, action) => {
+                state.status = "failed";
+                state.error = action.payload
+            })
+
+            //READ CONTAINER STATES
+            .addCase(readContainers.pending, (state) => {
+                state.status = "loading";
+            })
+            .addCase(readContainers.fulfilled, (state, action) => {
+                console.log("Contenedor Creado:", action.payload);
+                state.status = "succeeded";
+                state.containersArray = action.payload;
+            })
+            .addCase(readContainers.rejected, (state, action) => {
+                state.status = "failed";
+                state.error = action.payload
+            })
+
+            //DELETE CONTAINER STATES
+            .addCase(deleteContainer.pending, (state) => {
+                state.status = "loading";
+            })
+            .addCase(deleteContainer.fulfilled, (state, action) => {
+                console.log("Contenedor Creado:", action.payload);
+                state.status = "succeeded";
+                state.containersArray = state.containersArray.filter(container => container._id !== action.payload._id);
+            })
+            .addCase(deleteContainer.rejected, (state, action) => {
                 state.status = "failed";
                 state.error = action.payload
             })

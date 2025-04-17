@@ -7,18 +7,18 @@ import logo from "../../assets/DeepDev Logo.png"
 import wp from "../../../src/assets/wp.png"
 import "../../../src/dashboard.css"
 import useTheme from "../../../themeContext/ThemeContext"
-import { postTask, createContainer } from "../../../src/redux/taskSlice"
+import { postTask, createContainer, readContainers, deleteContainer as deleteContainerRedux } from "../../../src/redux/taskSlice"
 
 const Dashboard = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
+    
     const { tasksArray } = useSelector(state => state.taskSelector)
     const { containersArray } = useSelector(state => state.taskSelector)
-    const { logout, password } = useAuth()
+    const { logout, user } = useAuth()
     const { theme, themeSelector } = useTheme()
 
-    const [ menu, setMenu ] = useState(false)/* 
-    const [ containers, setConteiner ] = useState([]) */
+    const [ menu, setMenu ] = useState(false)
     const [ containerName, setContainerName ] = useState("")
     const [ modal, setModal ] = useState(null)
 
@@ -45,7 +45,8 @@ const Dashboard = () => {
             limitDate: dateRef.current.value || null,
             email: emailRef.current.value || null,
             completed: false,
-            comments: null
+            comments: null,
+            containerId: modal
         }
         console.log("NEW TASK", newTask);
         
@@ -54,16 +55,19 @@ const Dashboard = () => {
     }
 
     useEffect(() => {
-        console.log("USE-EFFECT", tasksArray, containersArray);
-        
-    }, [tasksArray, containersArray])
+        console.log("USE-EFFECT", containersArray);
+        console.log("USE-EFFECT", tasksArray);
+        dispatch(readContainers())
+    }, [tasksArray, dispatch])
 
     const deleteContainer = (id) => {
         const userEmail = prompt("Por favor, Ingrese el email registrado para eliminar este contenedor:");
 
-        if (userEmail === password) { 
-            setConteiner(containersArray.filter((container) => container.container._id !== id));
-            alert("Contenedor eliminado correctamente");
+        if (userEmail === user.email) {
+            dispatch(deleteContainerRedux(id)).then(() => {
+                dispatch(readContainers())
+            })
+
         } else {
             alert("Email incorrecto. No tienes permiso para eliminar este contenedor.");
         }
@@ -77,6 +81,9 @@ const Dashboard = () => {
         e.preventDefault()
         if(containerName){
             dispatch(createContainer({ name: containerName} )) // el user lo asigno desde el back al recibir el uid
+            .then(() => {
+                dispatch(readContainers()) // acá para que al crear ejecute la lectura de containers
+            })
             setContainerName("")
         }
     }
@@ -115,26 +122,32 @@ const Dashboard = () => {
                         <button onClick={() => themeSelector("purple")}><li>Purple</li></button>
                         <button onClick={() => themeSelector("green")}><li>Green</li></button>
                     </ul>
-                </div>
+                </div>   
             </nav>
 
             <div className="mainContainer">
                 <div className="taskContainer">
-                    {containersArray.map((container) => (
-                        <div className="open-modal" key={container.container._id}>
-                            <h2>{container.container.name}</h2>
-                            <button onClick={() => openModal(container.container._id)}>Agregar Tarea</button>
+                {containersArray.map((container) => (
+                    <div className="open-modal" key={container._id}>
+                        <h2 key={container.name}>{container.name}</h2>
+                        <button onClick={() => openModal(container._id)}>Agregar Tarea</button>
 
-                            {tasksArray.map((tasks) => 
-                                <div key={tasks.task._id}>
-                                    <p>{tasks.task.title}</p>
-                                </div>
-                            )}
-                            
-                            <p>{container.container._id}</p>
-                            <button onClick={() => deleteContainer(container.container._id)} className="delete-container">Eliminar Contenedor</button>
-                        </div>
-                    ))}
+                        {tasksArray.length > 0 ? (
+                            tasksArray
+                                .filter((task) => task.task.containerId === container._id)  
+                                .map((task) => (
+                                    <div key={task.task._id}>
+                                        <p>{task.task.title}</p> 
+                                    </div>
+                                ))
+                        ) : (
+                            <p>No hay tareas disponibles.</p>
+                        )}
+
+                        <p>{container._id}</p>
+                        <button onClick={() => deleteContainer(container._id)} className="delete-container">Eliminar Contenedor</button>
+                    </div>
+                ))}
 
                     {modal ? (
                         <div key={`modal-${modal}`}>
