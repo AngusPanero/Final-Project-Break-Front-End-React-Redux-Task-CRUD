@@ -7,20 +7,22 @@ import logo from "../../assets/DeepDev Logo.png"
 import wp from "../../../src/assets/wp.png"
 import "../../../src/dashboard.css"
 import useTheme from "../../../themeContext/ThemeContext"
-import { postTask } from "../../../src/redux/taskSlice"
+import { postTask, createContainer } from "../../../src/redux/taskSlice"
 
 const Dashboard = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
-    const { tasks } = useSelector(state => state.taskSelector)
+    const { tasksArray } = useSelector(state => state.taskSelector)
+    const { containersArray } = useSelector(state => state.taskSelector)
     const { logout, password } = useAuth()
     const { theme, themeSelector } = useTheme()
 
-    const [ menu, setMenu ] = useState(false)
-    const [ containers, setConteiner ] = useState([])
+    const [ menu, setMenu ] = useState(false)/* 
+    const [ containers, setConteiner ] = useState([]) */
     const [ containerName, setContainerName ] = useState("")
     const [ modal, setModal ] = useState(null)
 
+    //REF CREATE TASKS
     const titleRef = useRef();
     const descriptionRef = useRef();
     const dateRef = useRef();
@@ -39,57 +41,52 @@ const Dashboard = () => {
 
         const newTask = {
             title: titleRef.current.value,
-            description: descriptionRef.current.value || null, // Si está vacío, pon null
+            description: descriptionRef.current.value || null,
             limitDate: dateRef.current.value || null,
             email: emailRef.current.value || null,
             completed: false,
             comments: null
         }
         console.log("NEW TASK", newTask);
-        console.log("TASKS", tasks);
         
-        dispatch(postTask(newTask))
+        dispatch(postTask(newTask)) // en el Reducer TaskData es el parametro de postTask
         closeModal()
     }
 
     useEffect(() => {
-        console.log("TASKS USE-EFFECT", tasks);
+        console.log("USE-EFFECT", tasksArray, containersArray);
         
-    }, [tasks])
+    }, [tasksArray, containersArray])
 
     const deleteContainer = (id) => {
-        const userPassword = prompt("Por favor, Ingrese el email registrado para eliminar este contenedor:");
+        const userEmail = prompt("Por favor, Ingrese el email registrado para eliminar este contenedor:");
 
-        if (userPassword === password) { 
-            setConteiner(containers.filter((container) => container.id !== id));
+        if (userEmail === password) { 
+            setConteiner(containersArray.filter((container) => container.container._id !== id));
             alert("Contenedor eliminado correctamente");
         } else {
             alert("Email incorrecto. No tienes permiso para eliminar este contenedor.");
         }
     };
 
-    const createContainer = (name) => {
-        setConteiner([...containers, {id: Date.now(), name: name, tasks: []}])
-    }
-
-    const handleInputName = (e) => {
+    const handleInputNameContainer = (e) => {
         setContainerName(e.target.value)
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmitContainer = (e) => {
         e.preventDefault()
         if(containerName){
-            createContainer(containerName)
+            dispatch(createContainer({ name: containerName} )) // el user lo asigno desde el back al recibir el uid
             setContainerName("")
         }
     }
 
-    const handleLogout = () => {
+    const handleLogout = () => { //Logout
         logout()
         navigate("/")
     }
 
-    const toogleMenu = () =>{
+    const toogleMenu = () =>{ // TRUE / FALSE menú desplegable NAV
         setMenu(!menu)
     }
 
@@ -98,8 +95,8 @@ const Dashboard = () => {
             <nav className={`nav-${theme}`}>
                 <img className="logo-nav" src={logo} alt="Logo-DeepDev" />  
 
-                <form className="container-form" onSubmit={handleSubmit}>
-                    <input className="input-container" type="text" onChange={handleInputName} value={containerName} placeholder="Nombrá la Columna" />
+                <form className="container-form" onSubmit={handleSubmitContainer}>
+                    <input className="input-container" type="text" onChange={handleInputNameContainer} value={containerName} placeholder="Nombrá la Columna" />
                     <button type="submit" className="addTask-button">Crear Nueva Columna</button>
                 </form>
                 
@@ -123,40 +120,38 @@ const Dashboard = () => {
 
             <div className="mainContainer">
                 <div className="taskContainer">
-                        
-                        {containers.map((container) => 
-                            <>
-                                <div className="taskContainer-ind" key={container.id}>
-                                    <h2>{container.name}</h2>
-                                    <button onClick={openModal}>Agregar Tarea</button>
-                                    {tasks.length > 0 ? (
-                                        tasks.map((taskObject) => (
-                                            <div key={taskObject.task._id}>
-                                                <h3>{taskObject.task.title}</h3>
-                                            </div>
-                                        ))
-                                    ) : <p>Aún No Hay Tareas</p>}
+                    {containersArray.map((container) => (
+                        <div className="open-modal" key={container.container._id}>
+                            <h2>{container.container.name}</h2>
+                            <button onClick={() => openModal(container.container._id)}>Agregar Tarea</button>
 
-                                    <h4>{container.id}</h4>
-                                    <button onClick={() => deleteContainer(container.id)} className="delete-container">Eliminar Contenedor</button>
+                            {tasksArray.map((tasks) => 
+                                <div key={tasks.task._id}>
+                                    <p>{tasks.task.title}</p>
                                 </div>
+                            )}
+                            
+                            <p>{container.container._id}</p>
+                            <button onClick={() => deleteContainer(container.container._id)} className="delete-container">Eliminar Contenedor</button>
+                        </div>
+                    ))}
 
-                                { modal ? <div key={`modal-${container.id}`}>
-                                    <form className="open-modal" onSubmit={handleSubmitTask}>
-                                        <input className="input-task-form" ref={titleRef} placeholder="Nombre de la Tarea" type="text" required/>
-                                        <input className="input-task-form" ref={descriptionRef} placeholder="Descripción" type="text" />
-                                        <input className="input-task-form" ref={dateRef} placeholder="Fecha Limite" type="date" />
-                                        <input className="input-task-form" ref={emailRef} placeholder="Email" type="email" />
-                                        <button type="submit">Crear Tarea</button>
-                                        <button onClick={closeModal}>Cancelar</button>
-                                    </form>
-                                </div> : "" } 
-                                </>   
-                            )}    
+                    {modal ? (
+                        <div key={`modal-${modal}`}>
+                            <form className="open-modal" onSubmit={handleSubmitTask}>
+                                <input className="input-task-form" ref={titleRef} placeholder="Nombre de la Tarea" type="text" required />
+                                <input className="input-task-form" ref={descriptionRef} placeholder="Descripción" type="text" />
+                                <input className="input-task-form" ref={dateRef} placeholder="Fecha Limite" type="date" />
+                                <input className="input-task-form" ref={emailRef} placeholder="Email" type="email" />
+                                <button type="submit">Crear Tarea</button>
+                                <button onClick={closeModal}>Cancelar</button>
+                            </form>
+                        </div>
+                    ) : ""}
                 </div>
                 <footer className="footer-dashboard">© 2025 DeepDev. Todos los derechos reservados. Valencia - España</footer>
-                <Link to={import.meta.env.VITE_WHATSAPP} target="_blank"><img className="logo-wp" src={wp} alt="logo-whatsApp"/></Link>
-            </div>    
+                <Link to={import.meta.env.VITE_WHATSAPP} target="_blank"><img className="logo-wp" src={wp} alt="logo-whatsApp" /></Link>
+            </div>
         </>
         
     )
