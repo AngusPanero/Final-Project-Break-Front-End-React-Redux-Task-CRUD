@@ -30,6 +30,31 @@ export const postTask = createAsyncThunk( // uso Thunk porque asi se maneja la a
     }
 )
 
+export const readTasks = createAsyncThunk(
+    "readTasks",
+    async(_, { rejectWithValue }) => {
+        try {
+            const currentUser = auth.currentUser;
+            if (!currentUser) {
+                return rejectWithValue("Usuario no Autenticado");
+            }
+            const token = await currentUser.getIdToken();
+            console.log("TOKEN READ", token);
+
+            const response = await axios.get("http://localhost:2105/read", {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    'Content-Type': 'application/json' 
+                }
+            })
+            console.log("Respuesta de Tasks", response.data);
+            return response.data
+        } catch (error) {
+            return rejectWithValue(error.message || "Error en la Solicitud")
+        }
+    }
+)
+
 export const deleteTaskRedux = createAsyncThunk(
     "deleteTask",
     async(id, { rejectWithValue }) => {
@@ -53,7 +78,7 @@ export const deleteTaskRedux = createAsyncThunk(
         }
     }
 )
-
+// ACA ESTA EL COMMIT
 export const updateTaskCompleted = createAsyncThunk(
     "updateTaskCompleted",
     async({id, completed}, { rejectWithValue }) => {
@@ -65,7 +90,7 @@ export const updateTaskCompleted = createAsyncThunk(
             const token = await currentUser.getIdToken()
             console.log("TOKEN UPDATE", token);
 
-            const response = await axios.post(`http://localhost:2105/updateCompletedTask/${id}`, { completed }, {
+            const response = await axios.put(`http://localhost:2105/updateCompletedTask/${id}`, { completed }, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                     'Content-Type': 'application/json' 
@@ -164,6 +189,7 @@ const taskSlice = createSlice({
     }, 
     extraReducers: (actualState) => { // extraReducers para cuando tengo que hacer asincronía
         actualState
+// TASKS        
             //CREATE TASK STATES
             .addCase(postTask.pending, (state) => {
                 state.status = "loading";
@@ -171,28 +197,27 @@ const taskSlice = createSlice({
             .addCase(postTask.fulfilled, (state, action) => {
                 console.log("Tarea añadida:", action.payload);
                 state.status = "succeeded";
-                state.tasksArray.push(action.payload);
             })
             .addCase(postTask.rejected, (state, action) => {
                 state.status = "failed";
                 state.error = action.payload
             })
 
-            // DELETE TASK
-            .addCase(deleteTaskRedux.pending, (state) => {
+            //READ TASK STATES
+            .addCase(readTasks.pending, (state) => {
                 state.status = "loading";
             })
-            .addCase(deleteTaskRedux.fulfilled, (state, action) => {
-                console.log("Contenedor Borrado:", action.payload);
+            .addCase(readTasks.fulfilled, (state, action) => {
+                console.log("Tareas Obtenidas:", action.payload);
                 state.status = "succeeded";
-                state.tasksArray = state.tasksArray.filter(task => task._id !== action.payload._id);
+                state.tasksArray = action.payload;
             })
-            .addCase(deleteTaskRedux.rejected, (state, action) => {
+            .addCase(readTasks.rejected, (state, action) => {
                 state.status = "failed";
                 state.error = action.payload
             })
 
-            // UPDATE TASK
+            // UPDATE COMPLETED TASK
             .addCase(updateTaskCompleted.pending, (state) => {
                 state.status = "loading";
             })
@@ -211,20 +236,20 @@ const taskSlice = createSlice({
                 state.error = action.payload
             })
 
-            //READ TASKS STATES
-            /* .addCase(readTasks.pending, (state) => {
+            // DELETE TASK
+            .addCase(deleteTaskRedux.pending, (state) => {
                 state.status = "loading";
             })
-            .addCase(readTasks.fulfilled, (state, action) => {
-                console.log("Contenedor Creado:", action.payload);
+            .addCase(deleteTaskRedux.fulfilled, (state, action) => {
+                console.log("Contenedor Borrado:", action.payload);
                 state.status = "succeeded";
-                state.containersArray = action.payload;
+                state.tasksArray = state.tasksArray.filter(task => task._id !== action.payload._id);
             })
-            .addCase(readTasks.rejected, (state, action) => {
+            .addCase(deleteTaskRedux.rejected, (state, action) => {
                 state.status = "failed";
                 state.error = action.payload
-            }) */
-
+            })
+//CONTAINERS
             //CREATE CONTAINER STATES
             .addCase(createContainer.pending, (state) => {
                 state.status = "loading";

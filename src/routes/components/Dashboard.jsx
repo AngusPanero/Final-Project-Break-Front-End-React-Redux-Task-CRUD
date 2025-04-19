@@ -7,7 +7,7 @@ import logo from "../../assets/DeepDev Logo.png"
 import wp from "../../../src/assets/wp.png"
 import "../../../src/dashboard.css"
 import useTheme from "../../../themeContext/ThemeContext"
-import { postTask, createContainer, readContainers, updateTaskCompleted, deleteTaskRedux, deleteContainer as deleteContainerRedux } from "../../../src/redux/taskSlice"
+import { postTask, createContainer, readTasks, readContainers, updateTaskCompleted, deleteTaskRedux, deleteContainer as deleteContainerRedux } from "../../../src/redux/taskSlice"
 
 const Dashboard = () => {
     const navigate = useNavigate()
@@ -38,10 +38,12 @@ const Dashboard = () => {
     const commentsRefUpdate = useRef();
 
     const markTaskAsCompleted = (id) => {
-        const completed = true
+        setCompletedTask(!completedTask)
 
-        dispatch(updateTaskCompleted({id, completed}))
-        setCompletedTask(true)
+        console.log("Estado Completed", completedTask);
+        
+        dispatch(updateTaskCompleted({id, completed: completedTask}))
+        
     }
 
     const openModalUpdate = (id) => {
@@ -74,16 +76,22 @@ const Dashboard = () => {
             containerId: modal
         }
         console.log("NEW TASK", newTask);
+        console.log("TASKS ARRAY", tasksArray);
         
-        dispatch(postTask(newTask)) // en el Reducer TaskData es el parametro de postTask
+        
+        dispatch(postTask(newTask))
+        .then(() => {
+            dispatch(readTasks());
+        });
         closeModal()
     }
 
     useEffect(() => {
-        console.log("USE-EFFECT", containersArray);
-        console.log("USE-EFFECT", tasksArray);
+        console.log("USE-EFFECT CONTAINERS", containersArray);
+        console.log("USE-EFFECT TASKS", tasksArray);
         dispatch(readContainers())
-    }, [tasksArray, dispatch])
+        dispatch(readTasks())
+    }, [dispatch])
 
     const deleteContainer = (id) => {
         const userEmail = prompt("Por favor, Ingrese el email registrado para eliminar este contenedor:");
@@ -102,7 +110,8 @@ const Dashboard = () => {
 
         if (userEmail === user.email) {
             dispatch(deleteTaskRedux(id)).then(() => {
-                dispatch(readContainers())
+                dispatch(readTasks())
+                
             })
         } else {
             alert("Email incorrecto. No tienes permiso para eliminar este contenedor.");
@@ -162,7 +171,7 @@ const Dashboard = () => {
             </nav>
 
             <div className="mainContainer">
-                <div className="taskContainer">
+                <div key={"containersArray"} className="taskContainer">
                 {containersArray.map((container) => (
                     <div className="open-modal" key={container._id}>
                         <h2 key={container.name}>{container.name}</h2>
@@ -170,12 +179,12 @@ const Dashboard = () => {
 
                         {tasksArray.length > 0 ? (
                             tasksArray
-                                .filter((task) => task.task.containerId === container._id)  
+                                .filter((task) => task.containerId === container._id)  
                                 .map((task) => (
-                                    <div key={task.task._id}>
-                                        <h3 className="taskTitle" onClick={() => openModalUpdate(container._id)}>{task.task.title}</h3>
-                                        <button onClick={() => markTaskAsCompleted(task.task._id)}>{completedTask ? "Realizada" : "Completar Tarea"}</button>
-                                        <button onClick={() => deleteTask(task.task._id)}>Eliminar Tarea</button> 
+                                    <div key={task._id}>
+                                        <h3 className="taskTitle" onClick={() => openModalUpdate(container._id)}>{task.title}</h3>
+                                        <button onClick={() => markTaskAsCompleted(task._id)}>{task.completed === true ? "Realizada" : "Completar Tarea"}</button>
+                                        <button onClick={() => deleteTask(task._id)}>Eliminar Tarea</button> 
                                     </div>
                                 ))
                         ) : (
