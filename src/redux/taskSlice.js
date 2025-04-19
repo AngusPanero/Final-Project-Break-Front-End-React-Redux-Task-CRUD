@@ -30,30 +30,53 @@ export const postTask = createAsyncThunk( // uso Thunk porque asi se maneja la a
     }
 )
 
-/* export const readTasks = createAsyncThunk(
-    "readTasks",
-    async(_, { rejectWithValue }) => {
+export const deleteTaskRedux = createAsyncThunk(
+    "deleteTask",
+    async(id, { rejectWithValue }) => {
         try {
-            const currentUser = auth.currentUser;
-            if (!currentUser) {
-                return rejectWithValue("Usuario no Autenticado");
+            const currentUser = auth.currentUser
+            if(!currentUser){
+                return rejectWithValue("Usuario No Autenticado")
             }
-            const token = await currentUser.getIdToken();
-            console.log("TOKEN READ TASKS", token);
-            const response = await axios.get("http://localhost:2105/read", {
+            const token = await currentUser.getIdToken()
+            console.log("TOKEN", token);
+            
+            const response = await axios.delete(`http://localhost:2105/delete/${id}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                     'Content-Type': 'application/json' 
                 }
             })
-            console.log("Respuesta Read Tasks", response.data);
-            
             return response.data
         } catch (error) {
             return rejectWithValue(error.message || "Error en la Solicitud")
         }
     }
-) */
+)
+
+export const updateTaskCompleted = createAsyncThunk(
+    "updateTaskCompleted",
+    async({id, completed}, { rejectWithValue }) => {
+        try {
+            const currentUser = auth.currentUser
+            if(!currentUser){
+                return rejectWithValue("Usuario No Autenticado")
+            }
+            const token = await currentUser.getIdToken()
+            console.log("TOKEN UPDATE", token);
+
+            const response = await axios.post(`http://localhost:2105/updateCompletedTask/${id}`, { completed }, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    'Content-Type': 'application/json' 
+                }
+            })
+            return response.data
+        } catch (error) {
+            return rejectWithValue(error.message || "Error en la Solicitud")
+        }
+    }
+)
 
 //CRUD CONTAINERS
 export const createContainer = createAsyncThunk(
@@ -155,6 +178,39 @@ const taskSlice = createSlice({
                 state.error = action.payload
             })
 
+            // DELETE TASK
+            .addCase(deleteTaskRedux.pending, (state) => {
+                state.status = "loading";
+            })
+            .addCase(deleteTaskRedux.fulfilled, (state, action) => {
+                console.log("Contenedor Borrado:", action.payload);
+                state.status = "succeeded";
+                state.tasksArray = state.tasksArray.filter(task => task._id !== action.payload._id);
+            })
+            .addCase(deleteTaskRedux.rejected, (state, action) => {
+                state.status = "failed";
+                state.error = action.payload
+            })
+
+            // UPDATE TASK
+            .addCase(updateTaskCompleted.pending, (state) => {
+                state.status = "loading";
+            })
+            .addCase(updateTaskCompleted.fulfilled, (state, action) => {
+                console.log("Task Actualizada:", action.payload);
+                state.status = "succeeded";
+                
+                const updatedTask = action.payload;
+                
+                state.tasksArray = state.tasksArray.map((task) =>
+                    task._id === updatedTask._id ? { ...task, completed: updatedTask.completed } : task
+                );
+            })
+            .addCase(updateTaskCompleted.rejected, (state, action) => {
+                state.status = "failed";
+                state.error = action.payload
+            })
+
             //READ TASKS STATES
             /* .addCase(readTasks.pending, (state) => {
                 state.status = "loading";
@@ -188,7 +244,7 @@ const taskSlice = createSlice({
                 state.status = "loading";
             })
             .addCase(readContainers.fulfilled, (state, action) => {
-                console.log("Contenedor Creado:", action.payload);
+                console.log("Contenedor Leído:", action.payload);
                 state.status = "succeeded";
                 state.containersArray = action.payload;
             })
@@ -202,7 +258,7 @@ const taskSlice = createSlice({
                 state.status = "loading";
             })
             .addCase(deleteContainer.fulfilled, (state, action) => {
-                console.log("Contenedor Creado:", action.payload);
+                console.log("Contenedor Borrado:", action.payload);
                 state.status = "succeeded";
                 state.containersArray = state.containersArray.filter(container => container._id !== action.payload._id);
             })

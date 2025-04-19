@@ -7,7 +7,7 @@ import logo from "../../assets/DeepDev Logo.png"
 import wp from "../../../src/assets/wp.png"
 import "../../../src/dashboard.css"
 import useTheme from "../../../themeContext/ThemeContext"
-import { postTask, createContainer, readContainers, deleteContainer as deleteContainerRedux } from "../../../src/redux/taskSlice"
+import { postTask, createContainer, readContainers, updateTaskCompleted, deleteTaskRedux, deleteContainer as deleteContainerRedux } from "../../../src/redux/taskSlice"
 
 const Dashboard = () => {
     const navigate = useNavigate()
@@ -21,12 +21,37 @@ const Dashboard = () => {
     const [ menu, setMenu ] = useState(false)
     const [ containerName, setContainerName ] = useState("")
     const [ modal, setModal ] = useState(null)
+    const [ modalUpdate, setModalUpdate ] = useState(null)
+    const [ completedTask, setCompletedTask ] = useState(false)
 
     //REF CREATE TASKS
     const titleRef = useRef();
     const descriptionRef = useRef();
     const dateRef = useRef();
     const emailRef = useRef();
+
+     //REF Update TASKS
+    const titleRefUpdate = useRef();
+    const descriptionRefUpdate = useRef();
+    const dateRefUpdate = useRef();
+    const emailRefUpdate = useRef();
+    const commentsRefUpdate = useRef();
+
+    const markTaskAsCompleted = (id) => {
+        const completed = true
+
+        dispatch(updateTaskCompleted({id, completed}))
+        setCompletedTask(true)
+    }
+
+    const openModalUpdate = (id) => {
+        setModalUpdate(id) // le doy el id para que abra el modal del div correspondiente
+    }
+
+    const closeModalUpdate = () => {
+        setModalUpdate(null) // le doy el id para que abra el modal del div correspondiente
+    }
+
 
     const openModal = (id) => {
         setModal(id) // le doy el id para que abra el modal del div correspondiente
@@ -67,7 +92,18 @@ const Dashboard = () => {
             dispatch(deleteContainerRedux(id)).then(() => {
                 dispatch(readContainers())
             })
+        } else {
+            alert("Email incorrecto. No tienes permiso para eliminar este contenedor.");
+        }
+    };
 
+    const deleteTask = (id) => {
+        const userEmail = prompt("Por favor, Ingrese el email registrado para eliminar este contenedor:");
+
+        if (userEmail === user.email) {
+            dispatch(deleteTaskRedux(id)).then(() => {
+                dispatch(readContainers())
+            })
         } else {
             alert("Email incorrecto. No tienes permiso para eliminar este contenedor.");
         }
@@ -137,7 +173,9 @@ const Dashboard = () => {
                                 .filter((task) => task.task.containerId === container._id)  
                                 .map((task) => (
                                     <div key={task.task._id}>
-                                        <p>{task.task.title}</p> 
+                                        <h3 className="taskTitle" onClick={() => openModalUpdate(container._id)}>{task.task.title}</h3>
+                                        <button onClick={() => markTaskAsCompleted(task.task._id)}>{completedTask ? "Realizada" : "Completar Tarea"}</button>
+                                        <button onClick={() => deleteTask(task.task._id)}>Eliminar Tarea</button> 
                                     </div>
                                 ))
                         ) : (
@@ -161,6 +199,21 @@ const Dashboard = () => {
                             </form>
                         </div>
                     ) : ""}
+
+                    {modalUpdate ? (
+                        <div key={`modal-${modalUpdate}`}>
+                            <form className="open-modal-update" onSubmit={handleSubmitTask}>
+                                <input className="input-task-formUpdate" ref={titleRefUpdate} placeholder="Nombre de la Tarea" type="text" required />
+                                <input className="input-task-formUpdate" ref={descriptionRefUpdate} placeholder="Descripción" type="text" />
+                                <input className="input-task-formUpdate" ref={dateRefUpdate} placeholder="Fecha Limite" type="date" />
+                                <input className="input-task-formUpdate" ref={emailRefUpdate} placeholder="Email" type="email" />
+                                <input className="input-task-formUpdate" ref={commentsRefUpdate} placeholder="Comentarios" type="text" />
+                                <button type="submit">Crear Tarea</button>
+                                <button onClick={closeModalUpdate}>Cancelar</button>
+                            </form>
+                        </div>
+                    ) : ""}
+
                 </div>
                 <footer className="footer-dashboard">© 2025 DeepDev. Todos los derechos reservados. Valencia - España</footer>
                 <Link to={import.meta.env.VITE_WHATSAPP} target="_blank"><img className="logo-wp" src={wp} alt="logo-whatsApp" /></Link>

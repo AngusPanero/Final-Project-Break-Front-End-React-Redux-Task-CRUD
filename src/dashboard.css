@@ -208,3 +208,19 @@ form{
 .input-task-form{
     height: .7rem;
 }
+
+.open-modal-update{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: .7rem;
+    margin-top: 1rem;
+}
+
+.input-task-formUpdate{
+    height: .7rem;
+}
+
+.taskTitle{
+    cursor: pointer;
+}
