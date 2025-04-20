@@ -8,7 +8,6 @@ import wp from "../../../src/assets/wp.png"
 import "../../../src/dashboard.css"
 import useTheme from "../../../themeContext/ThemeContext"
 import { postTask, createContainer, readTasks, readContainers, updatedTask, updateTaskCompleted, deleteTaskRedux, deleteContainer as deleteContainerRedux } from "../../../src/redux/taskSlice"
-import react from "@vitejs/plugin-react-swc";
 
 const Dashboard = () => {
     const navigate = useNavigate()
