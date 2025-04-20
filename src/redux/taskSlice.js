@@ -88,12 +88,36 @@ export const updateTaskCompleted = createAsyncThunk(
                 return rejectWithValue("Usuario No Autenticado")
             }
             const token = await currentUser.getIdToken()
-            console.log("TOKEN UPDATE", token);
+            console.log("TOKEN COMPLETED", token);
 
             const response = await axios.put(`http://localhost:2105/updateCompletedTask/${id}`, { completed }, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                     'Content-Type': 'application/json' 
+                }
+            })
+            return response.data
+        } catch (error) {
+            return rejectWithValue(error.message || "Error en la Solicitud")
+        }
+    }
+)
+
+export const updatedTask = createAsyncThunk(
+    "updateTask",
+    async({ id, updateTaskForm }, { rejectWithValue }) => {
+        try {
+            const currentUser = auth.currentUser;
+            if(currentUser){
+                rejectWithValue("Usuario no Autenticado")
+            }
+            const token = await currentUser.getIdToken()
+            console.log("TOKEN UPDATE", token);
+
+            const response = await axios.put(`http://localhost:2105/update/${id}`, { updateTaskForm }, {
+                headers : {
+                    Authorization: `Bearer ${token}`,
+                    'Content-Type': 'application/json'
                 }
             })
             return response.data
@@ -232,6 +256,25 @@ const taskSlice = createSlice({
                 );
             })
             .addCase(updateTaskCompleted.rejected, (state, action) => {
+                state.status = "failed";
+                state.error = action.payload
+            })
+
+            // UPDATE TASK
+            .addCase(updatedTask.pending, (state) => {
+                state.status = "loading";
+            })
+            .addCase(updatedTask.fulfilled, (state, action) => {
+                console.log("Task Actualizada:", action.payload);
+                state.status = "succeeded";
+                
+                const updatedTask = action.payload;
+                
+                state.tasksArray = state.tasksArray.map((task) =>
+                    task._id === updatedTask._id ? { ...task, ...updatedTask} : task
+                );
+            })
+            .addCase(updatedTask.rejected, (state, action) => {
                 state.status = "failed";
                 state.error = action.payload
             })

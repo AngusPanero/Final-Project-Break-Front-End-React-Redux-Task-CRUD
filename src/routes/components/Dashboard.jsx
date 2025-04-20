@@ -7,7 +7,8 @@ import logo from "../../assets/DeepDev Logo.png"
 import wp from "../../../src/assets/wp.png"
 import "../../../src/dashboard.css"
 import useTheme from "../../../themeContext/ThemeContext"
-import { postTask, createContainer, readTasks, readContainers, updateTaskCompleted, deleteTaskRedux, deleteContainer as deleteContainerRedux } from "../../../src/redux/taskSlice"
+import { postTask, createContainer, readTasks, readContainers, updatedTask, updateTaskCompleted, deleteTaskRedux, deleteContainer as deleteContainerRedux } from "../../../src/redux/taskSlice"
+import react from "@vitejs/plugin-react-swc";
 
 const Dashboard = () => {
     const navigate = useNavigate()
@@ -36,6 +37,7 @@ const Dashboard = () => {
     const dateRefUpdate = useRef();
     const emailRefUpdate = useRef();
     const commentsRefUpdate = useRef();
+    const CompletedRefUpdate = useRef()
 
     const markTaskAsCompleted = (id) => {
         setCompletedTask(!completedTask)
@@ -78,12 +80,33 @@ const Dashboard = () => {
         console.log("NEW TASK", newTask);
         console.log("TASKS ARRAY", tasksArray);
         
-        
         dispatch(postTask(newTask))
         .then(() => {
             dispatch(readTasks());
         });
         closeModal()
+    }
+
+    const handleSubmitUpdateTask = (e, id) => {
+        e.preventDefault()
+
+        const updateTaskForm = {
+            title: titleRefUpdate.current.value ? titleRefUpdate.current.value : titleRef.current.value,
+            description: descriptionRefUpdate.current.value ? descriptionRefUpdate.current.value : descriptionRef.current.value,
+            limitDate: dateRefUpdate.current.value ? dateRefUpdate.current.value : dateRef.current.value,
+            email: emailRefUpdate.current.value ? emailRefUpdate.current.value : emailRef.current.value,
+            completed: CompletedRefUpdate.current.checked ? true : false, 
+            comments: commentsRefUpdate.current.value ? commentsRefUpdate.current.value : null, 
+            containerId: modal
+        }
+
+        console.log("NEW TASK", updateTaskForm);
+        console.log("TASKS ARRAY", tasksArray);
+
+        dispatch(updatedTask(id, updateTaskForm)).then(() => {
+            dispatch(readTasks())
+        });
+        closeModalUpdate()
     }
 
     useEffect(() => {
@@ -183,7 +206,7 @@ const Dashboard = () => {
                                 .map((task) => (
                                     <div key={task._id}>
                                         <h3 className="taskTitle" onClick={() => openModalUpdate(container._id)}>{task.title}</h3>
-                                        <button onClick={() => markTaskAsCompleted(task._id)}>{task.completed === true ? "Realizada" : "Completar Tarea"}</button>
+                                        <button ref={CompletedRefUpdate} onClick={() => markTaskAsCompleted(task._id)}>{task.completed === true ? "Realizada" : "Completar Tarea"}</button>
                                         <button onClick={() => deleteTask(task._id)}>Eliminar Tarea</button> 
                                     </div>
                                 ))
@@ -211,13 +234,13 @@ const Dashboard = () => {
 
                     {modalUpdate ? (
                         <div key={`modal-${modalUpdate}`}>
-                            <form className="open-modal-update" onSubmit={handleSubmitTask}>
+                            <form className="open-modal-update" onSubmit={handleSubmitUpdateTask}>
                                 <input className="input-task-formUpdate" ref={titleRefUpdate} placeholder="Nombre de la Tarea" type="text" required />
                                 <input className="input-task-formUpdate" ref={descriptionRefUpdate} placeholder="Descripción" type="text" />
                                 <input className="input-task-formUpdate" ref={dateRefUpdate} placeholder="Fecha Limite" type="date" />
                                 <input className="input-task-formUpdate" ref={emailRefUpdate} placeholder="Email" type="email" />
                                 <input className="input-task-formUpdate" ref={commentsRefUpdate} placeholder="Comentarios" type="text" />
-                                <button type="submit">Crear Tarea</button>
+                                <button type="submit">Actualizar Tarea</button>
                                 <button onClick={closeModalUpdate}>Cancelar</button>
                             </form>
                         </div>
