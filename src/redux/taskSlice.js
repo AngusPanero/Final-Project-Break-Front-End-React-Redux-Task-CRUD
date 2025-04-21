@@ -108,13 +108,13 @@ export const updatedTask = createAsyncThunk(
     async({ id, updateTaskForm }, { rejectWithValue }) => {
         try {
             const currentUser = auth.currentUser;
-            if(currentUser){
-                rejectWithValue("Usuario no Autenticado")
+            if(!currentUser){
+                return rejectWithValue("Usuario no Autenticado")
             }
             const token = await currentUser.getIdToken()
             console.log("TOKEN UPDATE", token);
 
-            const response = await axios.put(`http://localhost:2105/update/${id}`, { updateTaskForm }, {
+            const response = await axios.put(`http://localhost:2105/update/${id}`, updateTaskForm, {
                 headers : {
                     Authorization: `Bearer ${token}`,
                     'Content-Type': 'application/json'

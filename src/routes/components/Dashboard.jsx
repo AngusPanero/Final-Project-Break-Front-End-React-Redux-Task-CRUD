@@ -23,6 +23,7 @@ const Dashboard = () => {
     const [ modal, setModal ] = useState(null)
     const [ modalUpdate, setModalUpdate ] = useState(null)
     const [ completedTask, setCompletedTask ] = useState(false)
+    const [ updateTaskData, setUpdateTaskData ] = useState(null)
 
     //REF CREATE TASKS
     const titleRef = useRef();
@@ -40,14 +41,15 @@ const Dashboard = () => {
 
     const markTaskAsCompleted = (id) => {
         setCompletedTask(!completedTask)
-
         console.log("Estado Completed", completedTask);
-        
         dispatch(updateTaskCompleted({id, completed: completedTask}))
-        
     }
 
-    const openModalUpdate = (id) => {
+    const openModalUpdate = (id, task) => {
+        const { title, description, limitDate, email, comments, completed, containerId } = task
+        setUpdateTaskData({ title, description, limitDate, email, comments, completed, containerId });
+        console.log("UPDATE DATA", task);
+        
         setModalUpdate(id) // le doy el id para que abra el modal del div correspondiente
     }
 
@@ -86,23 +88,25 @@ const Dashboard = () => {
         closeModal()
     }
 
-    const handleSubmitUpdateTask = (e, id) => {
+    const handleSubmitUpdateTask = (e) => {
         e.preventDefault()
 
-        const updateTaskForm = {
-            title: titleRefUpdate.current.value ? titleRefUpdate.current.value : titleRef.current.value,
-            description: descriptionRefUpdate.current.value ? descriptionRefUpdate.current.value : descriptionRef.current.value,
-            limitDate: dateRefUpdate.current.value ? dateRefUpdate.current.value : dateRef.current.value,
-            email: emailRefUpdate.current.value ? emailRefUpdate.current.value : emailRef.current.value,
-            completed: CompletedRefUpdate.current.checked ? true : false, 
-            comments: commentsRefUpdate.current.value ? commentsRefUpdate.current.value : null, 
-            containerId: modal
-        }
+        const id = modalUpdate
 
-        console.log("NEW TASK", updateTaskForm);
+        const updateTaskForm = {
+            title: titleRefUpdate.current.value || updateTaskData.title,
+            description: descriptionRefUpdate.current.value || updateTaskData.description,
+            limitDate: dateRefUpdate.current.value || updateTaskData.limitDate,
+            email: emailRefUpdate.current.value || updateTaskData.email,
+            completed: CompletedRefUpdate.current.value || updateTaskData.completed,
+            comments: [{ text: commentsRefUpdate.current.value, reviewed: false }] || updateTaskData.comments,
+            containerId: updateTaskData.containerId
+        };
+
+        console.log("UPDATED TASK", updateTaskForm);
         console.log("TASKS ARRAY", tasksArray);
 
-        dispatch(updatedTask(id, updateTaskForm)).then(() => {
+        dispatch(updatedTask({ id, updateTaskForm })).then(() => {
             dispatch(readTasks())
         });
         closeModalUpdate()
@@ -113,7 +117,7 @@ const Dashboard = () => {
         console.log("USE-EFFECT TASKS", tasksArray);
         dispatch(readContainers())
         dispatch(readTasks())
-    }, [dispatch])
+    }, [updateTaskData, dispatch])
 
     const deleteContainer = (id) => {
         const userEmail = prompt("Por favor, Ingrese el email registrado para eliminar este contenedor:");
@@ -204,7 +208,7 @@ const Dashboard = () => {
                                 .filter((task) => task.containerId === container._id)  
                                 .map((task) => (
                                     <div key={task._id}>
-                                        <h3 className="taskTitle" onClick={() => openModalUpdate(container._id)}>{task.title}</h3>
+                                        <h3 className="taskTitle" onClick={() => openModalUpdate(task._id, task)}>{task.title}</h3>
                                         <button ref={CompletedRefUpdate} onClick={() => markTaskAsCompleted(task._id)}>{task.completed === true ? "Realizada" : "Completar Tarea"}</button>
                                         <button onClick={() => deleteTask(task._id)}>Eliminar Tarea</button> 
                                     </div>
