@@ -220,8 +220,7 @@ const Dashboard = () => {
                             tasksArray
                                 .filter((task) => task.containerId === container._id)  
                                 .map((task) => (
-                                    <div key={task._id}>
-
+                                    <>
                                         <div className="middleContainer">
                                             <button className={task.completed === true ? "completedTaskButton" : "uncompletedTaskButton"} ref={CompletedRefUpdate} onClick={() => markTaskAsCompleted(task._id)}>{task.completed === true ? "✓" : "X"}</button>
                                             <div>
@@ -239,12 +238,12 @@ const Dashboard = () => {
                                                         <div key={index}>
                                                             <div className="commentsContainer">
                                                                 <button className={comment.reviewed ? "completedCommentButton" : "unCompletedCommentButton"} onClick={() => markTaskAsCompletedComment(task._id, comment._id)}>{comment.reviewed ? "✓" : "X"} </button>
-                                                                <strong><p className="taskComment">{comment.text}</p></strong>
+                                                                <strong><p className={`taskComment-${theme}`}>{comment.text}</p></strong>
                                                             </div>
                                                         </div>
                                                     ))) : (<p className="taskComment">No Hay Comentarios</p>))}
                                         </div> 
-                                    </div>
+                                    </>
                                 ))) : (<p>No hay tareas disponibles.</p>)}
                         <button className="deleteContainerButton" onClick={() => deleteContainer(container._id)}>Eliminar Contenedor</button>
                     </div>
