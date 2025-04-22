@@ -1,3 +1,59 @@
+/*DARK THEME*/
+.nav-dark{
+    color: white;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 1rem;
+    background-color: #0d0d0d;
+}
+
+.footer-dark{
+    color: white;
+    position: fixed;
+    bottom: 2rem;
+    z-index: 1;
+}
+
+.logout-dark{
+    color: white;
+    cursor: pointer;
+}
+
+.li-nav-dark{
+    color: white;
+}
+
+.title-container-dark{
+    color: white;
+}
+
+.date-task-dark{
+    color: white;
+}
+
+.title-task-dark{
+    color: white;
+}
+
+.menu-desplegable.open-dark{
+    opacity: 1;
+    visibility: visible;
+    display: flex;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    height: 25rem;
+    background-color: #0d0d0d;
+    margin: 0px;
+    transition: opacity 0.7s ease, visibility 0.7s ease;
+}
+
+.addTask-button-dark{
+    width: 20rem;
+    color: white;
+}
+
 .nav-blue{
     display: flex;
     justify-content: space-around;
@@ -6,20 +62,12 @@
     background-color: #1e3a8a;
 }
 
-.nav-dark{
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    gap: 1rem;
-    background-color: #0d0d0d;
-}
-
 .nav-green{
     display: flex;
     justify-content: space-around;
     align-items: center;
     gap: 1rem;
-    border: 2px solid #0d0d0d;
+    background-color: #1bd662;
 }
 
 .nav-purple{
@@ -44,10 +92,6 @@
     align-items: center;
     gap: 1rem;
     background-color: rgb(81, 104, 128);
-}
-
-.logout{
-    cursor: pointer;
 }
 
 .menu-hamburguesa{
@@ -94,20 +138,6 @@ button{
     top: 0px;
     right: 0px;
     height: 25rem;
-    border: 2px solid #0d0d0d;
-    margin: 0px;
-    transition: opacity 0.7s ease, visibility 0.7s ease;
-}
-
-.menu-desplegable.open-dark{
-    opacity: 1;
-    visibility: visible;
-    display: flex;
-    position: absolute;
-    top: 0px;
-    right: 0px;
-    height: 25rem;
-    background-color: #0d0d0d;
     margin: 0px;
     transition: opacity 0.7s ease, visibility 0.7s ease;
 }
@@ -184,12 +214,6 @@ strong{
     right: 2rem;
 }
 
-.footer-dashboard{
-    position: fixed;
-    bottom: 2rem;
-    z-index: 1;
-}
-
 .taskContainer{
     display: flex;
     flex-direction: row;
@@ -208,10 +232,6 @@ strong{
 
 form{
     display: flex;
-}
-
-.addTask-button{
-    width: 20rem;
 }
 
 .input-container{
@@ -273,10 +293,12 @@ form{
     gap: .7rem;
     margin-top: 1rem;
     border: 2px solid black;
+    background-color: rgba(255, 255, 255, 0.13);
     border-radius: 15px;
 }
 
-button.AddTaskButton {
+button.CreateTaskButton{
+    color: white;
     display: flex;
     justify-content: center;
     align-items: center;

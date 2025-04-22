@@ -187,23 +187,23 @@ const Dashboard = () => {
 
                 <form className="container-form" onSubmit={handleSubmitContainer}>
                     <input className="input-container" type="text" onChange={handleInputNameContainer} value={containerName} placeholder="Nombrá la Columna" />
-                    <button type="submit" className="addTask-button">Crear Nueva Columna</button>
+                    <button type="submit" className={`addTask-button-${theme}`}>Crear Nueva Columna</button>
                 </form>
                 
             
-                <button className="logout" onClick={handleLogout}>Cerrar sesión</button>
+                <button className={`logout-${theme}`} onClick={handleLogout}>Cerrar sesión</button>
                 <button onClick={toogleMenu}><img className="menu-hamburguesa" src={menuHam} alt="menu-icon" /></button>
                 
                 <div className={`menu-desplegable ${menu ? `open-${theme}` : ""}`}>
                     <ul className={`ul-menu`}>
                         <button onClick={toogleMenu}><img className="menu-hamburguesa" src={menuHam} alt="menu-icon" /></button>
-                        <button ><li><strong>Temas</strong></li></button>
-                        <button onClick={() => themeSelector("default")}><li>Default</li></button>
-                        <button onClick={() => themeSelector("dark")}><li>Dark</li></button>
-                        <button onClick={() => themeSelector("light")}><li>Light</li></button>
-                        <button onClick={() => themeSelector("blue")}><li>Blue</li></button>
-                        <button onClick={() => themeSelector("purple")}><li>Purple</li></button>
-                        <button onClick={() => themeSelector("green")}><li>Green</li></button>
+                        <button className={`li-nav-${theme}`} ><li><strong>Temas</strong></li></button>
+                        <button className={`li-nav-${theme}`} onClick={() => themeSelector("default")}><li>Default</li></button>
+                        <button className={`li-nav-${theme}`} onClick={() => themeSelector("dark")}><li>Dark</li></button>
+                        <button className={`li-nav-${theme}`} onClick={() => themeSelector("light")}><li>Light</li></button>
+                        <button className={`li-nav-${theme}`} onClick={() => themeSelector("blue")}><li>Blue</li></button>
+                        <button className={`li-nav-${theme}`} onClick={() => themeSelector("purple")}><li>Purple</li></button>
+                        <button className={`li-nav-${theme}`} onClick={() => themeSelector("green")}><li>Green</li></button>
                     </ul>
                 </div>   
             </nav>
@@ -213,8 +213,8 @@ const Dashboard = () => {
                 {containersArray.map((container) => (
                     <div className="open-modal" key={container._id}>
                         <div className="topContainer">
-                            <h2 key={container.name}>{container.name}</h2>
-                            <button className="AddTaskButton" onClick={() => openModal(container._id)}>Agregar</button>
+                            <h2 className={`title-container-${theme}`} key={container.name}>{container.name}</h2>
+                            <button className="CreateTaskButton" onClick={() => openModal(container._id)}>Agregar</button>
                         </div>
                         {tasksArray.length > 0 ? (
                             tasksArray
@@ -225,8 +225,8 @@ const Dashboard = () => {
                                         <div className="middleContainer">
                                             <button className={task.completed === true ? "completedTaskButton" : "uncompletedTaskButton"} ref={CompletedRefUpdate} onClick={() => markTaskAsCompleted(task._id)}>{task.completed === true ? "✓" : "X"}</button>
                                             <div>
-                                                <h3 className="taskTitle" onClick={() => openModalUpdate(task._id, task)}>{task.title}</h3>
-                                                <p>{task.limitDate === null ? "Sin Fecha Límite" : `Fecha Límite: ${task.limitDate.slice(0, 10)}`}</p>
+                                                <h3 className={`title-task-${theme}`} onClick={() => openModalUpdate(task._id, task)}>{task.title}</h3>
+                                                <p className={`date-task-${theme}`}>{task.limitDate === null ? "Sin Fecha Límite" : `Fecha Límite: ${task.limitDate.slice(0, 10)}`}</p>
                                                 
                                             </div>        
                                             <button onClick={() => modalCommentArrow(task._id)} className="commentsArrow">{modalComents === task._id ? "🔽" : "▶️"}</button>
@@ -284,7 +284,7 @@ const Dashboard = () => {
                     ) : ""}
 
                 </div>
-                <footer className="footer-dashboard">© 2025 DeepDev. Todos los derechos reservados. Valencia - España</footer>
+                <footer className={`footer-${theme}`}>© 2025 DeepDev. Todos los derechos reservados. Valencia - España</footer>
                 <Link to={import.meta.env.VITE_WHATSAPP} target="_blank"><img className="logo-wp" src={wp} alt="logo-whatsApp" /></Link>
             </div>
         </>
