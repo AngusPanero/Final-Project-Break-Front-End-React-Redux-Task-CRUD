@@ -7,7 +7,7 @@ import logo from "../../assets/DeepDev Logo.png"
 import wp from "../../../src/assets/wp.png"
 import "../../../src/dashboard.css"
 import useTheme from "../../../themeContext/ThemeContext"
-import { postTask, createContainer, readTasks, readContainers, updatedTask, updateTaskCompleted, deleteTaskRedux, deleteContainer as deleteContainerRedux } from "../../../src/redux/taskSlice"
+import { postTask, createContainer, readTasks, readContainers, updatedTask, updateCommentRedux, updateTaskCompleted, deleteTaskRedux, deleteContainer as deleteContainerRedux } from "../../../src/redux/taskSlice"
 
 const Dashboard = () => {
     const navigate = useNavigate()
@@ -21,8 +21,10 @@ const Dashboard = () => {
     const [ menu, setMenu ] = useState(false)
     const [ containerName, setContainerName ] = useState("")
     const [ modal, setModal ] = useState(null)
+    const [ modalComents, setModalComments ] = useState(null)
     const [ modalUpdate, setModalUpdate ] = useState(null)
     const [ completedTask, setCompletedTask ] = useState(false)
+    const [ completedComment, setCompletedComment ] = useState(false)
     const [ updateTaskData, setUpdateTaskData ] = useState(null)
 
     //REF CREATE TASKS
@@ -39,10 +41,20 @@ const Dashboard = () => {
     const commentsRefUpdate = useRef();
     const CompletedRefUpdate = useRef()
 
+    const modalCommentArrow = (taskId) => {
+        setModalComments(id => (id === taskId ? null : taskId)) // Acá si ya está abierta la flecha, se cierra, si no le asigno el taskId
+    }
+
     const markTaskAsCompleted = (id) => {
         setCompletedTask(!completedTask)
         console.log("Estado Completed", completedTask);
         dispatch(updateTaskCompleted({id, completed: completedTask}))
+    }
+
+    const markTaskAsCompletedComment = (taskId, commentId) => {
+        setCompletedComment(!completedComment)
+        console.log("Estado Completed Comment", completedComment);
+        dispatch(updateCommentRedux({ taskId, commentId, reviewed: completedComment }))
     }
 
     const openModalUpdate = (id, task) => {
@@ -117,7 +129,7 @@ const Dashboard = () => {
         console.log("USE-EFFECT TASKS", tasksArray);
         dispatch(readContainers())
         dispatch(readTasks())
-    }, [updateTaskData, dispatch])
+    }, [completedComment, updateTaskData, dispatch])
 
     const deleteContainer = (id) => {
         const userEmail = prompt("Por favor, Ingrese el email registrado para eliminar este contenedor:");
@@ -195,35 +207,51 @@ const Dashboard = () => {
                     </ul>
                 </div>   
             </nav>
-
+            
             <div className="mainContainer">
                 <div key={"containersArray"} className="taskContainer">
                 {containersArray.map((container) => (
                     <div className="open-modal" key={container._id}>
-                        <h2 key={container.name}>{container.name}</h2>
-                        <button onClick={() => openModal(container._id)}>Agregar Tarea</button>
-
+                        <div className="topContainer">
+                            <h2 key={container.name}>{container.name}</h2>
+                            <button className="AddTaskButton" onClick={() => openModal(container._id)}>Agregar</button>
+                        </div>
                         {tasksArray.length > 0 ? (
                             tasksArray
                                 .filter((task) => task.containerId === container._id)  
                                 .map((task) => (
                                     <div key={task._id}>
-                                        <h3 className="taskTitle" onClick={() => openModalUpdate(task._id, task)}>{task.title}</h3>
-                                        <button ref={CompletedRefUpdate} onClick={() => markTaskAsCompleted(task._id)}>{task.completed === true ? "Realizada" : "Completar Tarea"}</button>
-                                        <button onClick={() => deleteTask(task._id)}>Eliminar Tarea</button> 
-                                    </div>
-                                ))
-                        ) : (
-                            <p>No hay tareas disponibles.</p>
-                        )}
 
-                        <p>{container._id}</p>
-                        <button onClick={() => deleteContainer(container._id)} className="delete-container">Eliminar Contenedor</button>
+                                        <div className="middleContainer">
+                                            <button className={task.completed === true ? "completedTaskButton" : "uncompletedTaskButton"} ref={CompletedRefUpdate} onClick={() => markTaskAsCompleted(task._id)}>{task.completed === true ? "✓" : "X"}</button>
+                                            <div>
+                                                <h3 className="taskTitle" onClick={() => openModalUpdate(task._id, task)}>{task.title}</h3>
+                                                <p>{task.limitDate === null ? "Sin Fecha Límite" : `Fecha Límite: ${task.limitDate.slice(0, 10)}`}</p>
+                                                
+                                            </div>        
+                                            <button onClick={() => modalCommentArrow(task._id)} className="commentsArrow">{modalComents === task._id ? "🔽" : "▶️"}</button>
+                                            <button className="deleteTaskButton" onClick={() => deleteTask(task._id)}>Eliminar</button>    
+                                        </div>
+                                        <div>
+                                            {modalComents === task._id && (
+                                                Array.isArray(task.comments) && task.comments.length > 0 ? (
+                                                    task.comments.map((comment, index) => (
+                                                        <div key={index}>
+                                                            <div className="commentsContainer">
+                                                                <button className={comment.reviewed ? "completedCommentButton" : "unCompletedCommentButton"} onClick={() => markTaskAsCompletedComment(task._id, comment._id)}>{comment.reviewed ? "✓" : "X"} </button>
+                                                                <strong><p className="taskComment">{comment.text}</p></strong>
+                                                            </div>
+                                                        </div>
+                                                    ))) : (<p className="taskComment">No Hay Comentarios</p>))}
+                                        </div> 
+                                    </div>
+                                ))) : (<p>No hay tareas disponibles.</p>)}
+                        <button className="deleteContainerButton" onClick={() => deleteContainer(container._id)}>Eliminar Contenedor</button>
                     </div>
                 ))}
 
                     {modal ? (
-                        <div key={`modal-${modal}`}>
+                        <div className="createModal" key={`modal-${modal}`}>
                             <form className="open-modal" onSubmit={handleSubmitTask}>
                                 <input className="input-task-form" ref={titleRef} placeholder="Nombre de la Tarea" type="text" required />
                                 <input className="input-task-form" ref={descriptionRef} placeholder="Descripción" type="text" />
@@ -232,11 +260,14 @@ const Dashboard = () => {
                                 <button type="submit">Crear Tarea</button>
                                 <button onClick={closeModal}>Cancelar</button>
                             </form>
+                            <div>
+                                <h3>Imagen o algo explicativo</h3>
+                            </div>
                         </div>
                     ) : ""}
 
                     {modalUpdate ? (
-                        <div key={`modal-${modalUpdate}`}>
+                        <div className="updateModal" key={`modal-${modalUpdate}`}>
                             <form className="open-modal-update" onSubmit={handleSubmitUpdateTask}>
                                 <input className="input-task-formUpdate" ref={titleRefUpdate} placeholder="Nombre de la Tarea" type="text" required />
                                 <input className="input-task-formUpdate" ref={descriptionRefUpdate} placeholder="Descripción" type="text" />
@@ -246,6 +277,9 @@ const Dashboard = () => {
                                 <button type="submit">Actualizar Tarea</button>
                                 <button onClick={closeModalUpdate}>Cancelar</button>
                             </form>
+                            <div>
+                                <h3>Imagen o algo explicativo</h3>
+                            </div>
                         </div>
                     ) : ""}
 

@@ -19,7 +19,7 @@
     justify-content: space-around;
     align-items: center;
     gap: 1rem;
-    background-color: #b3f5d9;
+    border: 2px solid #0d0d0d;
 }
 
 .nav-purple{
@@ -67,6 +67,9 @@ button{
     opacity: 0;
     visibility: hidden;
     position: absolute;
+    position: absolute;
+    top: 0px;
+    right: 0px;
     transition: opacity 0.7s ease, visibility 0.7s ease;
 }
 
@@ -75,6 +78,9 @@ button{
     visibility: visible;
     display: flex;
     height: 25rem;
+    position: absolute;
+    top: 0px;
+    right: 0px;
     background-color: #1e3a8a;
     margin: 0px;
     transition: opacity 0.7s ease, visibility 0.7s ease;
@@ -84,8 +90,11 @@ button{
     opacity: 1;
     visibility: visible;
     display: flex;
+    position: absolute;
+    top: 0px;
+    right: 0px;
     height: 25rem;
-    background-color: #b3f5d9;
+    border: 2px solid #0d0d0d;
     margin: 0px;
     transition: opacity 0.7s ease, visibility 0.7s ease;
 }
@@ -94,6 +103,9 @@ button{
     opacity: 1;
     visibility: visible;
     display: flex;
+    position: absolute;
+    top: 0px;
+    right: 0px;
     height: 25rem;
     background-color: #0d0d0d;
     margin: 0px;
@@ -103,6 +115,9 @@ button{
 .menu-desplegable.open-light{
     opacity: 1;
     visibility: visible;
+    position: absolute;
+    top: 0px;
+    right: 0px;
     display: flex;
     height: 25rem;
     background-color: #e1f7ea;
@@ -115,6 +130,9 @@ button{
     visibility: visible;
     display: flex;
     height: 25rem;
+    position: absolute;
+    top: 0px;
+    right: 0px;
     background-color: #6a0dad;
     margin: 0px;
     transition: opacity 0.7s ease, visibility 0.7s ease;
@@ -125,6 +143,9 @@ button{
     visibility: visible;
     display: flex;
     height: 25rem;
+    position: absolute;
+    top: 0px;
+    right: 0px;
     background-color: rgb(81, 104, 128);
     margin: 0px;
     transition: opacity 0.7s ease, visibility 0.7s ease;
@@ -176,6 +197,7 @@ strong{
     gap: 3rem;
     height: 50rem;
     width: 100rem;
+    
 }
 
 .taskContainer-ind{
@@ -197,16 +219,9 @@ form{
     height: .7rem;
 }
 
-.open-modal{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: .7rem;
-    margin-top: 1rem;
-}
-
 .input-task-form{
     height: .7rem;
+    width: 15rem;
 }
 
 .open-modal-update{
@@ -223,4 +238,188 @@ form{
 
 .taskTitle{
     cursor: pointer;
+}
+
+.createModal{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10rem;
+    height: 30rem;
+    width: 60rem;
+    background-color: #96a5d0;
+    position: absolute;
+    top: 25%;
+}
+
+.updateModal{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10rem;
+    height: 30rem;
+    width: 60rem;
+    background-color: #96a5d0;
+    position: absolute;
+    top: 25%;
+}
+
+.open-modal{
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: .7rem;
+    margin-top: 1rem;
+    border: 2px solid black;
+    border-radius: 15px;
+}
+
+button.AddTaskButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid black;
+    width: 5.3rem;
+    height: 2.5rem;
+    font-size: 17px;
+    letter-spacing: .8px;
+    background: rgba(0, 102, 255, 0.8); 
+    color: #ffffff;
+}
+
+h3{
+    height: .3rem;
+}
+
+.topContainer{
+    border: 2px solid #0d0d0d;
+    border-radius: 15px;
+    height: 4rem;
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.middleContainer{
+    border: 2px solid #0d0d0d;
+    height: 3rem;
+    border-radius: 15px;
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.commentsContainer{
+    margin-top: .5rem;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    height: 3rem;
+    gap: 1rem;
+    border: 2px solid #0d0d0d;
+    border-radius: 15px;
+    padding: 10px;
+}
+
+.completedTaskButton{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid white;
+    width: 2rem;
+    height: 2rem;
+    font-size: 20px;
+    padding-top: 12px;
+    padding-left: 12px;
+    background: rgba(13, 176, 45, 0.8); 
+    color: #ffffff;
+    transition: .7s;
+}
+
+.uncompletedTaskButton{
+    padding-top: 13px;
+    padding-left: 11px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid black;
+    width: 2rem;
+    height: 2rem;
+    font-size: 20px;
+    letter-spacing: .8px;
+    background: rgba(255, 0, 0, 0.8); 
+    color: #ffffff;
+    transition: .7s;
+}
+
+.deleteTaskButton{
+    border: 1px solid black;
+    width: 5.3rem;
+    height: 2.5rem;
+    font-size: 17px;
+    letter-spacing: .8px;
+    background: rgba(0, 102, 255, 0.8); 
+    color: #ffffff;
+}
+
+.deleteContainerButton{
+    border: 1px solid black;
+    width: 13rem;
+    height: 2.5rem;
+    font-size: 17px;
+    letter-spacing: .8px;
+    background: rgba(0, 102, 255, 0.8); 
+    color: #ffffff;
+}
+
+.completedCommentButton{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid white;
+    width: 2rem;
+    height: 2rem;
+    font-size: 20px;
+    padding-top: 12px;
+    padding-left: 12px;
+    background: rgba(13, 176, 45, 0.8); 
+    color: #ffffff;
+    transition: .7s;
+}
+
+.unCompletedCommentButton{
+    padding-top: 13px;
+    padding-left: 11px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid black;
+    width: 2rem;
+    height: 2rem;
+    font-size: 20px;
+    letter-spacing: .8px;
+    background: rgba(255, 0, 0, 0.8); 
+    color: #ffffff;
+    transition: .7s;
+}
+strong{
+    text-decoration: none;
+}
+
+p{
+    margin-left: 5px;
+}
+
+.commentsArrow{
+    padding: 0px;
+    margin: 0px;    
+    width: 1rem;
 }

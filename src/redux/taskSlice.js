@@ -103,6 +103,30 @@ export const updateTaskCompleted = createAsyncThunk(
     }
 )
 
+export const updateCommentRedux = createAsyncThunk(
+    "updateCommentRedux",
+    async({ taskId, commentId, reviewed }, { rejectWithValue }) => {
+        try {
+            const currentUser = auth.currentUser
+            if(!currentUser){
+                return rejectWithValue("Usuario No Autenticado")
+            }
+            const token = await currentUser.getIdToken()
+            console.log("TOKEN COMMENT", token);
+
+            const response = await axios.put(`http://localhost:2105/updateComment/${taskId}/${commentId}`, { reviewed }, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    'Content-Type': 'application/json' 
+                }
+            })
+            return response.data
+        } catch (error) {
+            return rejectWithValue(error.message || "Error en la Solicitud")
+        }
+    }
+)
+
 export const updatedTask = createAsyncThunk(
     "updateTask",
     async({ id, updateTaskForm }, { rejectWithValue }) => {
@@ -256,6 +280,25 @@ const taskSlice = createSlice({
                 );
             })
             .addCase(updateTaskCompleted.rejected, (state, action) => {
+                state.status = "failed";
+                state.error = action.payload
+            })
+
+            // UPDATE COMPLETED COMMENT
+            .addCase(updateCommentRedux.pending, (state) => {
+                state.status = "loading";
+            })
+            .addCase(updateCommentRedux.fulfilled, (state, action) => {
+                console.log("Task Actualizada:", action.payload);
+                state.status = "succeeded";
+            
+                const updatedTask = action.payload;
+            
+                state.tasksArray = state.tasksArray.map((task) =>
+                    task._id === updatedTask._id ? updatedTask : task
+                );
+            })
+            .addCase(updateCommentRedux.rejected, (state, action) => {
                 state.status = "failed";
                 state.error = action.payload
             })
