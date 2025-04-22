@@ -1,6 +1,5 @@
 /*DARK THEME*/
 .nav-dark{
-    color: white;
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -43,8 +42,10 @@
     position: absolute;
     top: 0px;
     right: 0px;
-    height: 25rem;
+    height: 22rem;
+    width: 12rem;
     background-color: #0d0d0d;
+    border-radius: 15px;
     margin: 0px;
     transition: opacity 0.7s ease, visibility 0.7s ease;
 }
@@ -54,47 +55,298 @@
     color: white;
 }
 
-.nav-blue{
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    gap: 1rem;
-    background-color: #1e3a8a;
-}
-
+/*green THEME*/
 .nav-green{
     display: flex;
     justify-content: space-around;
     align-items: center;
     gap: 1rem;
-    background-color: #1bd662;
+    background-color: #66d2a3;
 }
 
+.footer-green{
+    color: black;
+    position: fixed;
+    bottom: 2rem;
+    z-index: 1;
+}
+
+.logout-green{
+    color: black;
+    cursor: pointer;
+}
+
+.li-nav-green{
+    color: black;
+}
+
+.title-container-green{
+    color: black;
+}
+
+.date-task-green{
+    color: black;
+}
+
+.title-task-green{
+    color: black;
+}
+
+.menu-desplegable.open-green{
+    opacity: 1;
+    visibility: visible;
+    display: flex;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    height: 22rem;
+    width: 12rem;
+    background-color: #66d2a3;
+    border-radius: 15px;
+    margin: 0px;
+    transition: opacity 0.7s ease, visibility 0.7s ease;
+}
+
+.addTask-button-green{
+    width: 20rem;
+    color: black;
+}
+
+/*purple THEME*/
 .nav-purple{
     display: flex;
     justify-content: space-around;
     align-items: center;
     gap: 1rem;
-    background-color: #6a0dad;
+    background-color: #bd56c8;
 }
 
-.nav-light{
+.footer-purple{
+    color: white;
+    position: fixed;
+    bottom: 2rem;
+    z-index: 1;
+}
+
+.logout-purple{
+    color: white;
+    cursor: pointer;
+}
+
+.li-nav-purple{
+    color: white;
+}
+
+.title-container-purple{
+    color: white;
+}
+
+.date-task-purple{
+    color: white;
+}
+
+.title-task-purple{
+    color: white;
+}
+
+.menu-desplegable.open-purple{
+    opacity: 1;
+    visibility: visible;
     display: flex;
-    justify-content: space-around;
-    align-items: center;
-    gap: 1rem;
-    background-color: #e1f7ea;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    height: 22rem;
+    width: 12rem;
+    background-color: #bd56c8;
+    border-radius: 15px;
+    margin: 0px;
+    transition: opacity 0.7s ease, visibility 0.7s ease;
 }
 
+.addTask-button-purple{
+    width: 20rem;
+    color: white;
+}
+
+/*default THEME*/
 .nav-default{
     display: flex;
     justify-content: space-around;
     align-items: center;
     gap: 1rem;
-    background-color: rgb(81, 104, 128);
+    background-color: #8992a7;
+}
+
+.footer-default{
+    color: white;
+    position: fixed;
+    bottom: 2rem;
+    z-index: 1;
+}
+
+.logout-default{
+    color: white;
+    cursor: pointer;
+}
+
+.li-nav-default{
+    color: white;
+}
+
+.title-container-default{
+    color: white;
+}
+
+.date-task-default{
+    color: white;
+}
+
+.title-task-default{
+    color: white;
+}
+
+.menu-desplegable.open-default{
+    opacity: 1;
+    visibility: visible;
+    display: flex;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    height: 22rem;
+    width: 12rem;
+    background-color: #8992a7;
+    border-radius: 15px;
+    margin: 0px;
+    transition: opacity 0.7s ease, visibility 0.7s ease;
+}
+
+.addTask-button-default{
+    width: 20rem;
+    color: white;
+}
+
+/*light THEME*/
+.nav-light{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 1rem;
+    background-color: #c3f1f6;
+}
+
+.footer-light{
+    color: black;
+    position: fixed;
+    bottom: 2rem;
+    z-index: 1;
+}
+
+.logout-light{
+    color: black;
+    cursor: pointer;
+}
+
+.li-nav-light{
+    color: black;
+}
+
+.title-container-light{
+    color: black;
+}
+
+.date-task-light{
+    color: black;
+}
+
+.title-task-light{
+    color: black;
+}
+
+.menu-desplegable.open-light{
+    opacity: 1;
+    visibility: visible;
+    display: flex;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    height: 22rem;
+    width: 12rem;
+    background-color: #c3f1f6;
+    border-radius: 15px;
+    margin: 0px;
+    transition: opacity 0.7s ease, visibility 0.7s ease;
+}
+
+.addTask-button-light{
+    width: 20rem;
+    color: black;
+}
+
+/*blue THEME*/
+.nav-blue{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 1rem;
+    background-color: #6e79e2;
+}
+
+.footer-blue{
+    color: white;
+    position: fixed;
+    bottom: 2rem;
+    z-index: 1;
+}
+
+.logout-blue{
+    color: white;
+    cursor: pointer;
+}
+
+.li-nav-blue{
+    color: white;
+}
+
+.title-container-blue{
+    color: white;
+}
+
+.date-task-blue{
+    color: white;
+}
+
+.title-task-blue{
+    color: white;
+}
+
+.menu-desplegable.open-blue{
+    opacity: 1;
+    visibility: visible;
+    display: flex;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    height: 22rem;
+    width: 12rem;
+    background-color: #6e79e2;
+    border-radius: 15px;
+    margin: 0px;
+    transition: opacity 0.7s ease, visibility 0.7s ease;
+}
+
+.addTask-button-blue{
+    width: 20rem;
+    color: white;
 }
 
 .menu-hamburguesa{
+    height: 2rem;
+    cursor: pointer;
+}
+
+.menu-hamburguesa-li{
+    margin-right: 5rem;
     height: 2rem;
     cursor: pointer;
 }
@@ -117,70 +369,6 @@ button{
     transition: opacity 0.7s ease, visibility 0.7s ease;
 }
 
-.menu-desplegable.open-blue{
-    opacity: 1;
-    visibility: visible;
-    display: flex;
-    height: 25rem;
-    position: absolute;
-    top: 0px;
-    right: 0px;
-    background-color: #1e3a8a;
-    margin: 0px;
-    transition: opacity 0.7s ease, visibility 0.7s ease;
-}
-
-.menu-desplegable.open-green{
-    opacity: 1;
-    visibility: visible;
-    display: flex;
-    position: absolute;
-    top: 0px;
-    right: 0px;
-    height: 25rem;
-    margin: 0px;
-    transition: opacity 0.7s ease, visibility 0.7s ease;
-}
-
-.menu-desplegable.open-light{
-    opacity: 1;
-    visibility: visible;
-    position: absolute;
-    top: 0px;
-    right: 0px;
-    display: flex;
-    height: 25rem;
-    background-color: #e1f7ea;
-    margin: 0px;
-    transition: opacity 0.7s ease, visibility 0.7s ease;
-}
-
-.menu-desplegable.open-purple{
-    opacity: 1;
-    visibility: visible;
-    display: flex;
-    height: 25rem;
-    position: absolute;
-    top: 0px;
-    right: 0px;
-    background-color: #6a0dad;
-    margin: 0px;
-    transition: opacity 0.7s ease, visibility 0.7s ease;
-}
-
-.menu-desplegable.open-default{
-    opacity: 1;
-    visibility: visible;
-    display: flex;
-    height: 25rem;
-    position: absolute;
-    top: 0px;
-    right: 0px;
-    background-color: rgb(81, 104, 128);
-    margin: 0px;
-    transition: opacity 0.7s ease, visibility 0.7s ease;
-}
-
 .ul-menu{
     margin: 0%;
     width: 8rem;
@@ -198,6 +386,10 @@ strong{
 .logo-nav{
     height: 2rem;
     width: auto;
+    padding-top: 2px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 8px;
+    border: 2px solid black;
 }
 
 .mainContainer{
@@ -207,11 +399,12 @@ strong{
     align-items: center;
 }
 
-.logo-wp{
+.logo-wp {
     width: 5rem;
     position: fixed;
     bottom: 2rem;
     right: 2rem;
+    filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.621));
 }
 
 .taskContainer{
@@ -318,7 +511,7 @@ h3{
 .topContainer{
     border: 2px solid #0d0d0d;
     border-radius: 15px;
-    height: 4rem;
+    height: 2.3rem;
     padding: 10px;
     display: flex;
     flex-direction: row;
@@ -329,7 +522,7 @@ h3{
 
 .middleContainer{
     border: 2px solid #0d0d0d;
-    height: 3rem;
+    height: 2.3rem;
     border-radius: 15px;
     padding: 10px;
     display: flex;
@@ -344,7 +537,7 @@ h3{
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    height: 3rem;
+    height: 2.3rem;
     gap: 1rem;
     border: 2px solid #0d0d0d;
     border-radius: 15px;

@@ -196,9 +196,9 @@ const Dashboard = () => {
                 
                 <div className={`menu-desplegable ${menu ? `open-${theme}` : ""}`}>
                     <ul className={`ul-menu`}>
-                        <button onClick={toogleMenu}><img className="menu-hamburguesa" src={menuHam} alt="menu-icon" /></button>
+                        <button onClick={toogleMenu}><img className="menu-hamburguesa-li" src={menuHam} alt="menu-icon" /></button>
                         <button className={`li-nav-${theme}`} ><li><strong>Temas</strong></li></button>
-                        <button className={`li-nav-${theme}`} onClick={() => themeSelector("default")}><li>Default</li></button>
+                        <button className={`li-nav-${theme}`} onClick={() => themeSelector("default")}><li>Grey</li></button>
                         <button className={`li-nav-${theme}`} onClick={() => themeSelector("dark")}><li>Dark</li></button>
                         <button className={`li-nav-${theme}`} onClick={() => themeSelector("light")}><li>Light</li></button>
                         <button className={`li-nav-${theme}`} onClick={() => themeSelector("blue")}><li>Blue</li></button>
