@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 import menuHam from "../../assets/menuhamburguesas.png"
 import logo from "../../assets/DeepDev Logo.png"
 import wp from "../../../src/assets/wp.png"
+import updateImg from "../../../src/assets/update-img.png"
+import createImg from "../../../src/assets/create-img.png"
 import "../../../src/dashboard.css"
 import useTheme from "../../../themeContext/ThemeContext"
 import { postTask, createContainer, readTasks, readContainers, updatedTask, updateCommentRedux, updateTaskCompleted, deleteTaskRedux, deleteContainer as deleteContainerRedux } from "../../../src/redux/taskSlice"
@@ -241,7 +243,7 @@ const Dashboard = () => {
                                                                 <strong><p className={`taskComment-${theme}`}>{comment.text}</p></strong>
                                                             </div>
                                                         </div>
-                                                    ))) : (<p className="taskComment">No Hay Comentarios</p>))}
+                                                ))) : (<p className="taskComment">No Hay Comentarios</p>))}
                                         </div> 
                                     </>
                                 ))) : (<p>No hay tareas disponibles.</p>)}
@@ -252,15 +254,18 @@ const Dashboard = () => {
                     {modal ? (
                         <div className="createModal" key={`modal-${modal}`}>
                             <form className="open-modal" onSubmit={handleSubmitTask}>
+                            <h1 className={`title-container-${theme}`}>Crea tu Nueva Tarea</h1>
                                 <input className="input-task-form" ref={titleRef} placeholder="Nombre de la Tarea" type="text" required />
-                                <input className="input-task-form" ref={descriptionRef} placeholder="Descripción" type="text" />
+                                <textarea className="input-task-form-description" ref={descriptionRef} placeholder="Descripción" type="text" />
                                 <input className="input-task-form" ref={dateRef} placeholder="Fecha Limite" type="date" />
                                 <input className="input-task-form" ref={emailRef} placeholder="Email" type="email" />
-                                <button type="submit">Crear Tarea</button>
-                                <button onClick={closeModal}>Cancelar</button>
+                                <div className="createFooter">
+                                    <button className="updateTaskButton" type="submit">Crear</button>
+                                    <button className="deleteTaskButton" onClick={closeModal}>Cancelar</button>
+                                </div>    
                             </form>
                             <div>
-                                <h3>Imagen o algo explicativo</h3>
+                                <img className="createImg" src={createImg} alt="create-update" />
                             </div>
                         </div>
                     ) : ""}
@@ -268,16 +273,19 @@ const Dashboard = () => {
                     {modalUpdate ? (
                         <div className="updateModal" key={`modal-${modalUpdate}`}>
                             <form className="open-modal-update" onSubmit={handleSubmitUpdateTask}>
+                                <h1 className={`title-container-${theme}`}>Edita tu Tarea</h1>
                                 <input className="input-task-formUpdate" ref={titleRefUpdate} placeholder="Nombre de la Tarea" type="text" required />
-                                <input className="input-task-formUpdate" ref={descriptionRefUpdate} placeholder="Descripción" type="text" />
+                                <textarea className="input-task-formUpdate-description" ref={descriptionRefUpdate} placeholder="Descripción" type="text" />
                                 <input className="input-task-formUpdate" ref={dateRefUpdate} placeholder="Fecha Limite" type="date" />
                                 <input className="input-task-formUpdate" ref={emailRefUpdate} placeholder="Email" type="email" />
-                                <input className="input-task-formUpdate" ref={commentsRefUpdate} placeholder="Comentarios" type="text" />
-                                <button type="submit">Actualizar Tarea</button>
-                                <button onClick={closeModalUpdate}>Cancelar</button>
+                                <textarea className="input-task-formUpdate-comments" ref={commentsRefUpdate} placeholder="Comentarios" type="text" />
+                                <div className="updateFooter">
+                                    <button className="updateTaskButton" type="submit">Actualizar</button>
+                                    <button className="deleteTaskButton" onClick={closeModalUpdate}>Cancelar</button>
+                                </div>
                             </form>
                             <div>
-                                <h3>Imagen o algo explicativo</h3>
+                                <img className="updateImg" src={updateImg} alt="imagen-update" />
                             </div>
                         </div>
                     ) : ""}

@@ -39,6 +39,7 @@
 
 .title-task-dark{
     color: white;
+    cursor: pointer;
 }
 
 .menu-desplegable.open-dark{
@@ -102,6 +103,7 @@
 
 .title-task-green{
     color: black;
+    cursor: pointer;
 }
 
 .menu-desplegable.open-green{
@@ -165,6 +167,7 @@
 
 .title-task-purple{
     color: white;
+    cursor: pointer;
 }
 
 .menu-desplegable.open-purple{
@@ -228,6 +231,7 @@
 
 .title-task-default{
     color: white;
+    cursor: pointer;
 }
 
 .menu-desplegable.open-default{
@@ -291,6 +295,7 @@
 
 .title-task-light{
     color: black;
+    cursor: pointer;
 }
 
 .menu-desplegable.open-light{
@@ -354,6 +359,7 @@
 
 .title-task-blue{
     color: white;
+    cursor: pointer;
 }
 
 .menu-desplegable.open-blue{
@@ -476,7 +482,12 @@ form{
 
 .input-task-form{
     height: .7rem;
-    width: 15rem;
+    width: 20rem;
+}
+
+.input-task-form-description{
+    height: 6rem;
+    width: 21.5rem;
 }
 
 .open-modal-update{
@@ -484,11 +495,34 @@ form{
     flex-direction: column;
     align-items: center;
     gap: .7rem;
-    margin-top: 1rem;
+    margin-bottom: 1rem;
 }
 
 .input-task-formUpdate{
     height: .7rem;
+    width: 20rem;
+}
+
+.input-task-formUpdate-description{
+    height: 6rem;
+    width: 21.5rem;
+}
+
+.input-task-formUpdate-comments{
+    height: 6rem;
+    width: 21.5rem;
+}
+
+textarea{
+    border: 2px solid black;
+    padding: 10px;
+    outline: none;
+    border-radius: 10px;
+    font-size: 16px;
+    background: rgba(255, 255, 255, 0.8);
+    color: #333;
+    resize: vertical; 
+    box-sizing: border-box; 
 }
 
 .taskTitle{
@@ -499,24 +533,28 @@ form{
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10rem;
-    height: 30rem;
-    width: 60rem;
-    background-color: #96a5d0;
+    gap: 5rem;
+    height: 35rem;
+    width: 70rem;
+    background-color: #9b9797da;
+    border-radius: 15px;
+    border: 2px solid white;
     position: absolute;
-    top: 25%;
+    top: 18%;
 }
 
 .updateModal{
     display: flex;
     align-items: center;
     justify-content:center;
-    gap: 10rem;
-    height: 30rem;
-    width: 60rem;
-    background-color: #96a5d0;
+    gap: 5rem;
+    height: 35rem;
+    width: 65rem;
+    background-color: #9b9797da;
+    border-radius: 15px;
+    border: 2px solid white;
     position: absolute;
-    top: 25%;
+    top: 18%;
 }
 
 .open-modal{
@@ -524,13 +562,11 @@ form{
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: .7rem;
+    gap: 1rem;
     margin-top: 1rem;
-    border: 2px solid black;
-    background-color: rgba(255, 255, 255, 0.13);
     border-radius: 15px;
     width: 29rem;
-    max-height: 48rem;
+    max-height: 44rem;
     max-width: 30rem;
     overflow-y: auto;
 }
@@ -549,9 +585,42 @@ button.CreateTaskButton{
     color: #ffffff;
 }
 
+.updateTaskButton{
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid black;
+    width:7rem;
+    height: 2.5rem;
+    font-size: 17px;
+    letter-spacing: .8px;
+    background: rgba(0, 102, 255, 0.8); 
+    color: #ffffff;
+}
+
 h3{
     height: .3rem;
     font-size: 14px;
+}
+
+h1.title-container-dark{
+    font-size: 30px;
+}
+h1.title-container-default{
+    font-size: 30px;
+}
+h1.title-container-light{
+    font-size: 30px;
+}
+h1.title-container-blue{
+    font-size: 30px;
+}
+h1.title-container-purple{
+    font-size: 30px;
+}
+h1.title-container-green{
+    font-size: 30px;
 }
 
 .topContainer{
@@ -679,12 +748,34 @@ strong{
     text-decoration: none;
 }
 
-p{
-    margin-left: 5px;
-}
-
 .commentsArrow{
     padding: 0px;
     margin: 0px;    
     width: 1rem;
+}
+
+.updateImg{
+    border-radius: 15px;
+    height: 30rem;
+    width: auto;
+}
+
+.createImg{
+    border-radius: 15px;
+    height: 30rem;
+    width: auto;
+}
+
+.updateFooter{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 1.5rem;
+}
+
+.createFooter{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 1.5rem;
 }
