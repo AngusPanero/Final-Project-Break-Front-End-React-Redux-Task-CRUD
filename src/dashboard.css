@@ -440,6 +440,10 @@ strong{
     border: 2px solid black;
 }
 
+.logo-create{
+    height: 5rem;
+}
+
 .mainContainer{
     display: flex;
     flex-direction: column;
@@ -462,7 +466,6 @@ strong{
     gap: 3rem;
     height: 50rem;
     width: 100rem;
-    
 }
 
 .taskContainer-ind{
@@ -536,7 +539,7 @@ textarea{
     gap: 5rem;
     height: 35rem;
     width: 70rem;
-    background-color: #9b9797da;
+    background-color: #ffffff9e;
     border-radius: 15px;
     border: 2px solid white;
     position: absolute;
@@ -564,6 +567,20 @@ textarea{
     align-items: center;
     gap: 1rem;
     margin-top: 1rem;
+    border-radius: 15px;
+    width: 29rem;
+    max-height: 44rem;
+    max-width: 30rem;
+    overflow-y: auto;
+    border: 2px solid black;
+}
+
+.open-modal-create{
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
     border-radius: 15px;
     width: 29rem;
     max-height: 44rem;
@@ -758,12 +775,14 @@ strong{
     border-radius: 15px;
     height: 30rem;
     width: auto;
+    border: 2px solid black;
 }
 
 .createImg{
     border-radius: 15px;
     height: 30rem;
     width: auto;
+    border: 2px solid black;
 }
 
 .updateFooter{

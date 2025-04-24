@@ -9,7 +9,7 @@ import updateImg from "../../../src/assets/update-img.png"
 import createImg from "../../../src/assets/create-img.png"
 import "../../../src/dashboard.css"
 import useTheme from "../../../themeContext/ThemeContext"
-import { postTask, createContainer, readTasks, readContainers, updatedTask, updateCommentRedux, updateTaskCompleted, deleteTaskRedux, deleteContainer as deleteContainerRedux } from "../../../src/redux/taskSlice"
+import { postTask, createContainer, readTasks, readContainers, updatedTask, deleteCommentRedux, updateCommentRedux, updateTaskCompleted, deleteTaskRedux, deleteContainer as deleteContainerRedux } from "../../../src/redux/taskSlice"
 
 const Dashboard = () => {
     const navigate = useNavigate()
@@ -107,13 +107,15 @@ const Dashboard = () => {
 
         const id = modalUpdate
 
+        const commentValue = commentsRefUpdate.current?.value.trim(); // esta en mi REF
+
         const updateTaskForm = {
-            title: titleRefUpdate.current.value || updateTaskData.title,
-            description: descriptionRefUpdate.current.value || updateTaskData.description,
-            limitDate: dateRefUpdate.current.value || updateTaskData.limitDate,
-            email: emailRefUpdate.current.value || updateTaskData.email,
-            completed: CompletedRefUpdate.current.value || updateTaskData.completed,
-            comments: [{ text: commentsRefUpdate.current.value, reviewed: false }] || updateTaskData.comments,
+            title: titleRefUpdate.current?.value || updateTaskData.title,
+            description: descriptionRefUpdate.current?.value || updateTaskData.description,
+            limitDate: dateRefUpdate.current?.value || updateTaskData.limitDate,
+            email: emailRefUpdate.current?.value || updateTaskData.email,
+            completed: CompletedRefUpdate.current?.value || updateTaskData.completed,
+            comments: commentValue ? [...updateTaskData.comments, { text: commentValue, reviewed: false }] : updateTaskData.comments, // primero compruebo que no sea NULL con la const de arriba
             containerId: updateTaskData.containerId
         };
 
@@ -227,7 +229,7 @@ const Dashboard = () => {
                                             <button className={task.completed === true ? "completedTaskButton" : "uncompletedTaskButton"} ref={CompletedRefUpdate} onClick={() => markTaskAsCompleted(task._id)}>{task.completed === true ? "✓" : "X"}</button>
                                             <div>
                                                 <h3 className={`title-task-${theme}`} onClick={() => openModalUpdate(task._id, task)}>{task.title}</h3>
-                                                <p className={`date-task-${theme}`}>{task.limitDate === null ? "Sin Fecha Límite" : `Fecha Límite: ${task.limitDate.slice(0, 10)}`}</p>
+                                                <p className={`date-task-${theme}`}>{task.limitDate === null ? "Sin Fecha Límite" : `Fecha Límite: ${task.limitDate/* .slice(0, 10) */}`}</p>
                                                 
                                             </div>        
                                             <button onClick={() => modalCommentArrow(task._id)} className="commentsArrow">{modalComents === task._id ? "🔽" : "▶️"}</button>
@@ -241,6 +243,7 @@ const Dashboard = () => {
                                                             <div className="commentsContainer">
                                                                 <button className={comment.reviewed ? "completedCommentButton" : "unCompletedCommentButton"} onClick={() => markTaskAsCompletedComment(task._id, comment._id)}>{comment.reviewed ? "✓" : "X"} </button>
                                                                 <strong><p className={`taskComment-${theme}`}>{comment.text}</p></strong>
+                                                                <button className="deleteTaskButton" onClick={() => dispatch(deleteCommentRedux({ taskId: task._id, commentId: comment._id })).then(() => dispatch(readTasks()))}>Eliminar</button>
                                                             </div>
                                                         </div>
                                                 ))) : (<p className="taskComment">No Hay Comentarios</p>))}
@@ -253,8 +256,8 @@ const Dashboard = () => {
 
                     {modal ? (
                         <div className="createModal" key={`modal-${modal}`}>
-                            <form className="open-modal" onSubmit={handleSubmitTask}>
-                            <h1 className={`title-container-${theme}`}>Crea tu Nueva Tarea</h1>
+                            <form className="open-modal-create" onSubmit={handleSubmitTask}>
+                                <img className="logo-create" src={logo} alt="logo-deep-dev" />
                                 <input className="input-task-form" ref={titleRef} placeholder="Nombre de la Tarea" type="text" required />
                                 <textarea className="input-task-form-description" ref={descriptionRef} placeholder="Descripción" type="text" />
                                 <input className="input-task-form" ref={dateRef} placeholder="Fecha Limite" type="date" />
@@ -273,8 +276,8 @@ const Dashboard = () => {
                     {modalUpdate ? (
                         <div className="updateModal" key={`modal-${modalUpdate}`}>
                             <form className="open-modal-update" onSubmit={handleSubmitUpdateTask}>
-                                <h1 className={`title-container-${theme}`}>Edita tu Tarea</h1>
-                                <input className="input-task-formUpdate" ref={titleRefUpdate} placeholder="Nombre de la Tarea" type="text" required />
+                            <img className="logo-create" src={logo} alt="logo-deep-dev" />
+                                <input className="input-task-formUpdate" ref={titleRefUpdate} placeholder="Nombre de la Tarea" type="text" />
                                 <textarea className="input-task-formUpdate-description" ref={descriptionRefUpdate} placeholder="Descripción" type="text" />
                                 <input className="input-task-formUpdate" ref={dateRefUpdate} placeholder="Fecha Limite" type="date" />
                                 <input className="input-task-formUpdate" ref={emailRefUpdate} placeholder="Email" type="email" />

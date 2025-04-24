@@ -127,6 +127,30 @@ export const updateCommentRedux = createAsyncThunk(
     }
 )
 
+export const deleteCommentRedux = createAsyncThunk(
+    "deleteCommentRedux",
+    async({taskId, commentId}, { rejectWithValue }) => {
+        try {
+            const currentUser = auth.currentUser
+            if(!currentUser){
+                return rejectWithValue("Usuario no Autenticado")
+            }
+            const token = await currentUser.getIdToken()
+            console.log("TOKEN DELETE COMMENT", token);
+            
+            const response = await axios.delete(`http://localhost:2105/deleteComment/${taskId}/${commentId}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "aplication/json"
+                }
+            })
+            return response.data
+        } catch (error) {
+            return rejectWithValue(error.message, "Error en la Solicitud")
+        }
+    }
+)
+
 export const updatedTask = createAsyncThunk(
     "updateTask",
     async({ id, updateTaskForm }, { rejectWithValue }) => {
