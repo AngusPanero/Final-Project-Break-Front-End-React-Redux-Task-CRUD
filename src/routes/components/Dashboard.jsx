@@ -104,15 +104,13 @@ const Dashboard = () => {
 
     const handleSubmitUpdateTask = (e) => {
         e.preventDefault()
-
         const id = modalUpdate
-
         const commentValue = commentsRefUpdate.current?.value.trim(); // esta en mi REF
 
         const updateTaskForm = {
             title: titleRefUpdate.current?.value || updateTaskData.title,
             description: descriptionRefUpdate.current?.value || updateTaskData.description,
-            limitDate: dateRefUpdate.current?.value || updateTaskData.limitDate,
+            limitDate: dateRefUpdate.current?.value ? new Date(dateRefUpdate.current.value) : updateTaskData.limitDate, // con el new Date puedo crear una hora desde mi hora formateada si respeta el formato DD/MM/YYY
             email: emailRefUpdate.current?.value || updateTaskData.email,
             completed: CompletedRefUpdate.current?.value || updateTaskData.completed,
             comments: commentValue ? [...updateTaskData.comments, { text: commentValue, reviewed: false }] : updateTaskData.comments, // primero compruebo que no sea NULL con la const de arriba
@@ -215,8 +213,8 @@ const Dashboard = () => {
             <div className="mainContainer">
                 <div key={"containersArray"} className="taskContainer">
                 {containersArray.map((container) => (
-                    <div className="open-modal" key={container._id}>
-                        <div className="topContainer">
+                    <div className={`open-modal-${theme}`} key={container._id}>
+                        <div className={`topContainer-${theme}`}>
                             <h2 className={`title-container-${theme}`} key={container.name}>{container.name}</h2>
                             <button className="CreateTaskButton" onClick={() => openModal(container._id)}>Agregar</button>
                         </div>
@@ -225,28 +223,32 @@ const Dashboard = () => {
                                 .filter((task) => task.containerId === container._id)  
                                 .map((task) => (
                                     <>
-                                        <div className="middleContainer">
-                                            <button className={task.completed === true ? "completedTaskButton" : "uncompletedTaskButton"} ref={CompletedRefUpdate} onClick={() => markTaskAsCompleted(task._id)}>{task.completed === true ? "✓" : "X"}</button>
-                                            <div>
+                                        <div className={`middleContainer-${theme}`}>
+                                            <div className="middleContainer-main">
+                                                <button className={task.completed === true ? "completedTaskButton" : "uncompletedTaskButton"} ref={CompletedRefUpdate} onClick={() => markTaskAsCompleted(task._id)}>{task.completed === true ? "✓" : "X"}</button>
                                                 <h3 className={`title-task-${theme}`} onClick={() => openModalUpdate(task._id, task)}>{task.title}</h3>
-                                                <p className={`date-task-${theme}`}>{task.limitDate === null ? "Sin Fecha Límite" : `Fecha Límite: ${task.limitDate/* .slice(0, 10) */}`}</p>
                                                 
-                                            </div>        
-                                            <button onClick={() => modalCommentArrow(task._id)} className="commentsArrow">{modalComents === task._id ? "🔽" : "▶️"}</button>
-                                            <button className="deleteTaskButton" onClick={() => deleteTask(task._id)}>Eliminar</button>    
+                                                <button className="deleteTaskButton" onClick={() => deleteTask(task._id)}>Eliminar</button> 
+                                            </div>    
+                                            
+                                            <div className="task-info">
+                                                <p className={`date-task-${theme}`}>{task.limitDate === null ? "Sin Fecha Límite" : `Fecha Límite: ${task.limitDate.slice(0, 10)}`}</p>
+                                                <p className={`date-task-${theme} task-description`}>{task.description === null ? "Descripción: Aún no Hay" : `Descripción: ${task.description}`}</p>
+                                            </div>
+                                            <button onClick={() => modalCommentArrow(task._id)} className={`title-task-${theme} commentsArrow`}>{modalComents === task._id ? "🔽 Cerrar Comentarios" : "▶️ Ver Comentarios"}</button>
                                         </div>
                                         <div>
                                             {modalComents === task._id && (
                                                 Array.isArray(task.comments) && task.comments.length > 0 ? (
                                                     task.comments.map((comment, index) => (
                                                         <div key={index}>
-                                                            <div className="commentsContainer">
+                                                            <div className={`commentsContainer-${theme}`}>
                                                                 <button className={comment.reviewed ? "completedCommentButton" : "unCompletedCommentButton"} onClick={() => markTaskAsCompletedComment(task._id, comment._id)}>{comment.reviewed ? "✓" : "X"} </button>
-                                                                <strong><p className={`taskComment-${theme}`}>{comment.text}</p></strong>
+                                                                <p className={`taskComment-${theme}`}>{comment.text}</p>
                                                                 <button className="deleteTaskButton" onClick={() => dispatch(deleteCommentRedux({ taskId: task._id, commentId: comment._id })).then(() => dispatch(readTasks()))}>Eliminar</button>
                                                             </div>
                                                         </div>
-                                                ))) : (<p className="taskComment">No Hay Comentarios</p>))}
+                                                ))) : (<p className={`title-task-${theme}`}>No Hay Comentarios</p>))}
                                         </div> 
                                     </>
                                 ))) : (<p>No hay tareas disponibles.</p>)}

@@ -4,107 +4,117 @@ body{
     font-family: 'Montserrat', 'Roboto', 'Lato', 'Poppins', sans-serif;
 }
 
-.default{
-    background-color: lightslategray;
+.default {
+    min-width: 320px;
+    min-height: 100vh;
+    background: linear-gradient(90deg, #2f2f2f, #4f4f4f, #6e6e6e, #4f4f4f, #2f2f2f); /* Tonos grises */
+    background-size: 600% 600%;
+    animation: defaultAnimation 7s ease infinite;
+}
+
+@keyframes defaultAnimation {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
 }
 
 .blue {
     min-width: 320px;
     min-height: 100vh;
-    background: linear-gradient(45deg, #3c4da5, #3973f0, #5677c0); /* Azules ajustados */
+    background: linear-gradient(90deg, #3c4da5, #3973f0, #5677c0, #3973f0, #3c4da5);
     background-size: 600% 600%;
     animation: blueAnimation 7s ease infinite;
+    border: 3px solid #3c4da5;
 }
 
 @keyframes blueAnimation {
-    0% {
-        background-position: 0% 50%;
-    }
-    50% {
-        background-position: 100% 50%;
-    }
-    100% {
-        background-position: 0% 50%;
-    }
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
 }
 
+/* PURPLE */
 .purple {
     min-width: 320px;
     min-height: 100vh;
-    background: linear-gradient(45deg, #a45ed5, #a85dc8, #b983ff);
+    background: linear-gradient(90deg, #a45ed5, #a85dc8, #b983ff, #a85dc8, #a45ed5);
     background-size: 600% 600%;
     animation: purpleAnimation 7s ease infinite;
+    border: 3px solid #a85dc8;
 }
 
 @keyframes purpleAnimation {
-    0% {
-        background-position: 0% 50%;
-    }
-    50% {
-        background-position: 100% 50%;
-    }
-    100% {
-        background-position: 0% 50%;
-    }
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
 }
 
+/* LIGHT */
 .light {
     min-width: 320px;
     min-height: 100vh;
-    background: linear-gradient(45deg, #ebf8f1, #d9eef2, #c5f2e6);
+    background: linear-gradient(90deg, #ebf8f1, #d9eef2, #c5f2e6, #d9eef2, #ebf8f1);
     background-size: 600% 600%;
     animation: lightAnimation 7s ease infinite;
+    border: 3px solid #d9eef2;
 }
 
 @keyframes lightAnimation {
-    0% {
-        background-position: 0% 50%;
-    }
-    50% {
-        background-position: 100% 50%;
-    }
-    100% {
-        background-position: 0% 50%;
-    }
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
 }
 
+/* GREEN */
 .green {
     min-width: 320px;
     min-height: 100vh;
-    background: linear-gradient(45deg, #a2e5bf, #85e0ba, #82f5b6);
+    background: linear-gradient(90deg, #a2e5bf, #85e0ba, #82f5b6, #85e0ba, #a2e5bf);
     background-size: 600% 600%;
     animation: greenAnimation 7s ease infinite;
+    border: 3px solid #85e0ba;
 }
 
 @keyframes greenAnimation {
-    0% {
-        background-position: 0% 50%;
-    }
-    50% {
-        background-position: 100% 50%;
-    }
-    100% {
-        background-position: 0% 50%;
-    }
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
 }
 
+/* DARK */
 .dark {
     min-width: 320px;
     min-height: 100vh;
-    background: linear-gradient(45deg, #0d0d0d, #1a1a1a, #2a2a2a);
+    background: linear-gradient(90deg, #0d0d0d, #1a1a1a, #2a2a2a, #1a1a1a, #0d0d0d);
     background-size: 600% 600%;
     animation: darkAnimation 7s ease infinite;
+    border: 3px solid #1a1a1a;
 }
 
 @keyframes darkAnimation {
-    0% {
-        background-position: 0% 50%;
-    }
-    50% {
-        background-position: 100% 50%;
-    }
-    100% {
-        background-position: 0% 50%;
-    }
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
 }
 
+/* GREY */
+.grey {
+    min-width: 320px;
+    min-height: 100vh;
+    background: linear-gradient(90deg, #2f2f2f, #4f4f4f, #6e6e6e, #4f4f4f, #2f2f2f);
+    background-size: 600% 600%;
+    animation: greyAnimation 7s ease infinite;
+    border: 3px solid #5e5e5e;
+}
+
+@keyframes greyAnimation {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}

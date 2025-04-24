@@ -4,7 +4,62 @@
     justify-content: space-around;
     align-items: center;
     gap: 1rem;
-    background-color: #0d0d0d;
+    background-color: #0000006a;
+}
+
+.open-modal-dark{
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1rem;
+    border-radius: 15px;
+    width: 29rem;
+    max-height: 44rem;
+    max-width: 30rem;
+    overflow-y: auto;
+    border: 3px solid #4d4c4c;
+}
+
+.commentsContainer-dark{
+    margin-top: .5rem;
+    border: 3px solid #4d4c4c;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    height: 2.3rem;
+    gap: 1rem;
+    width: 90%;
+    min-width: 26rem;
+    border-radius: 15px;
+    padding: 10px;
+}
+
+.topContainer-dark{
+    border: 3px solid #4d4c4c;
+    border-radius: 15px;
+    height: 2.3rem;
+    width: 90%;
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.7rem;
+}
+
+.middleContainer-dark{
+    border: 3px solid #4d4c4c;
+    flex-wrap: wrap;
+    border-radius: 15px;
+    padding: 10px;
+    display: flex;
+    width: 90%;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.7rem;
 }
 
 .footer-dark{
@@ -29,15 +84,14 @@
 
 .title-container-dark{
     color: white;
-    font-size: 17px;
-}
+}    
 
 .date-task-dark{
     color: white;
-    font-size: 12px;
 }
 
 .title-task-dark{
+    font-size: 18px;
     color: white;
     cursor: pointer;
 }
@@ -68,7 +122,62 @@
     justify-content: space-around;
     align-items: center;
     gap: 1rem;
-    background-color: #66d2a3;
+    background-color: #77c6a575;
+}
+
+.open-modal-green{
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1rem;
+    border-radius: 15px;
+    width: 29rem;
+    max-height: 44rem;
+    max-width: 30rem;
+    overflow-y: auto;
+    border: 3px solid #77c6a5;
+}
+
+.commentsContainer-green{
+    margin-top: .5rem;
+    display: flex;
+    justify-content: flex-start;
+    border: 3px solid #77c6a5;
+    align-items: center;
+    height: 2.3rem;
+    gap: 1rem;
+    width: 90%;
+    min-width: 26rem;
+    border-radius: 15px;
+    padding: 10px;
+}
+
+.topContainer-green{
+    border: 3px solid #77c6a5;
+    border-radius: 15px;
+    height: 2.3rem;
+    width: 90%;
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.7rem;
+}
+
+.middleContainer-green{
+    border: 3px solid #77c6a5;
+    flex-wrap: wrap;
+    border-radius: 15px;
+    padding: 10px;
+    display: flex;
+    width: 90%;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.7rem;
 }
 
 .taskComment-green{
@@ -93,15 +202,14 @@
 
 .title-container-green{
     color: black;
-    font-size: 17px;
-}
+}    
 
 .date-task-green{
     color: black;
-    font-size: 12px;
 }
 
 .title-task-green{
+    font-size: 18px;
     color: black;
     cursor: pointer;
 }
@@ -115,7 +223,7 @@
     right: 0px;
     height: 22rem;
     width: 12rem;
-    background-color: #66d2a3;
+    background-color: #77c6a5;
     border-radius: 15px;
     margin: 0px;
     transition: opacity 0.7s ease, visibility 0.7s ease;
@@ -132,7 +240,62 @@
     justify-content: space-around;
     align-items: center;
     gap: 1rem;
-    background-color: #bd56c8;
+    background-color: #b866dc;
+}
+
+.open-modal-purple{
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1rem;
+    border-radius: 15px;
+    width: 29rem;
+    max-height: 44rem;
+    max-width: 30rem;
+    overflow-y: auto;
+    border: 3px solid #b866dc;
+}
+
+.commentsContainer-purple{
+    margin-top: .5rem;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    height: 2.3rem;
+    gap: 1rem;
+    width: 90%;
+    min-width: 26rem;
+    border: 3px solid #b866dc;
+    border-radius: 15px;
+    padding: 10px;
+}
+
+.topContainer-purple{
+    border: 3px solid #b866dc;
+    border-radius: 15px;
+    height: 2.3rem;
+    width: 90%;
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.7rem;
+}
+
+.middleContainer-purple{
+    border: 3px solid #b866dc;
+    flex-wrap: wrap;
+    border-radius: 15px;
+    padding: 10px;
+    display: flex;
+    width: 90%;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.7rem;
 }
 
 .taskComment-purple{
@@ -157,15 +320,14 @@
 
 .title-container-purple{
     color: white;
-    font-size: 17px;
-}
+}    
 
 .date-task-purple{
     color: white;
-    font-size: 12px;
 }
 
 .title-task-purple{
+    font-size: 18px;
     color: white;
     cursor: pointer;
 }
@@ -179,7 +341,7 @@
     right: 0px;
     height: 22rem;
     width: 12rem;
-    background-color: #bd56c8;
+    background-color: #b866dc;
     border-radius: 15px;
     margin: 0px;
     transition: opacity 0.7s ease, visibility 0.7s ease;
@@ -196,7 +358,62 @@
     justify-content: space-around;
     align-items: center;
     gap: 1rem;
-    background-color: #8992a7;
+    background-color: #5e5e5e;
+}
+
+.open-modal-default{
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1rem;
+    border-radius: 15px;
+    width: 29rem;
+    max-height: 44rem;
+    max-width: 30rem;
+    overflow-y: auto;
+    border: 3px solid #5e5e5e;
+}
+
+.commentsContainer-default{
+    margin-top: .5rem;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    height: 2.3rem;
+    gap: 1rem;
+    width: 90%;
+    min-width: 26rem;
+    border: 3px solid #5e5e5e;
+    border-radius: 15px;
+    padding: 10px;
+}
+
+.topContainer-default{
+    border: 3px solid #5e5e5e;
+    border-radius: 15px;
+    height: 2.3rem;
+    width: 90%;
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.7rem;
+}
+
+.middleContainer-default{
+    border: 3px solid #5e5e5e;
+    flex-wrap: wrap;
+    border-radius: 15px;
+    padding: 10px;
+    display: flex;
+    width: 90%;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.7rem;
 }
 
 .taskComment-default{
@@ -221,15 +438,14 @@
 
 .title-container-default{
     color: white;
-    font-size: 17px;
-}
+}    
 
 .date-task-default{
     color: white;
-    font-size: 12px;
 }
 
 .title-task-default{
+    font-size: 18px;
     color: white;
     cursor: pointer;
 }
@@ -243,7 +459,7 @@
     right: 0px;
     height: 22rem;
     width: 12rem;
-    background-color: #8992a7;
+    background-color: #5e5e5e;
     border-radius: 15px;
     margin: 0px;
     transition: opacity 0.7s ease, visibility 0.7s ease;
@@ -261,6 +477,61 @@
     align-items: center;
     gap: 1rem;
     background-color: #c3f1f6;
+}
+
+.open-modal-light{
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1rem;
+    border-radius: 15px;
+    width: 29rem;
+    max-height: 44rem;
+    max-width: 30rem;
+    overflow-y: auto;
+    border: 3px solid #2a9fb0;
+}
+
+.commentsContainer-light{
+    margin-top: .5rem;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    height: 2.3rem;
+    gap: 1rem;
+    width: 90%;
+    min-width: 26rem;
+    border: 3px solid #2a9fb0;
+    border-radius: 15px;
+    padding: 10px;
+}
+
+.topContainer-light{
+    border: 3px solid #2a9fb0;
+    border-radius: 15px;
+    height: 2.3rem;
+    width: 90%;
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.7rem;
+}
+
+.middleContainer-light{
+    border: 3px solid #2a9fb0;
+    flex-wrap: wrap;
+    border-radius: 15px;
+    padding: 10px;
+    display: flex;
+    width: 90%;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.7rem;
 }
 
 .taskComment-light{
@@ -285,15 +556,14 @@
 
 .title-container-light{
     color: black;
-    font-size: 17px;
-}
+}    
 
 .date-task-light{
     color: black;
-    font-size: 12px;
 }
 
 .title-task-light{
+    font-size: 18px;
     color: black;
     cursor: pointer;
 }
@@ -324,7 +594,61 @@
     justify-content: space-around;
     align-items: center;
     gap: 1rem;
-    background-color: #6e79e2;
+    background-color: #3c4da5;
+}
+.open-modal-blue{
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1rem;
+    border-radius: 15px;
+    width: 29rem;
+    max-height: 44rem;
+    max-width: 30rem;
+    overflow-y: auto;
+    border: 3px solid #3c4da5;
+}
+
+.commentsContainer-blue{
+    margin-top: .5rem;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    height: 2.3rem;
+    gap: 1rem;
+    width: 90%;
+    min-width: 26rem;
+    border: 3px solid #3c4da5;
+    border-radius: 15px;
+    padding: 10px;
+}
+
+.topContainer-blue{
+    border: 3px solid #3c4da5;
+    border-radius: 15px;
+    height: 2.3rem;
+    width: 90%;
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.7rem;
+}
+
+.middleContainer-blue{
+    border: 3px solid #3c4da5;
+    flex-wrap: wrap;
+    border-radius: 15px;
+    padding: 10px;
+    display: flex;
+    width: 90%;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.7rem;
 }
 
 .taskComment-blue{
@@ -349,15 +673,14 @@
 
 .title-container-blue{
     color: white;
-    font-size: 17px;
-}
+}    
 
 .date-task-blue{
     color: white;
-    font-size: 12px;
 }
 
 .title-task-blue{
+    font-size: 18px;
     color: white;
     cursor: pointer;
 }
@@ -371,7 +694,7 @@
     right: 0px;
     height: 22rem;
     width: 12rem;
-    background-color: #6e79e2;
+    background-color: #3c4da5;
     border-radius: 15px;
     margin: 0px;
     transition: opacity 0.7s ease, visibility 0.7s ease;
@@ -539,7 +862,7 @@ textarea{
     gap: 5rem;
     height: 35rem;
     width: 70rem;
-    background-color: #ffffff9e;
+    background-color: #ffffff74;
     border-radius: 15px;
     border: 2px solid white;
     position: absolute;
@@ -558,21 +881,6 @@ textarea{
     border: 2px solid white;
     position: absolute;
     top: 18%;
-}
-
-.open-modal{
-    padding: 1rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-    margin-top: 1rem;
-    border-radius: 15px;
-    width: 29rem;
-    max-height: 44rem;
-    max-width: 30rem;
-    overflow-y: auto;
-    border: 2px solid black;
 }
 
 .open-modal-create{
@@ -617,67 +925,7 @@ button.CreateTaskButton{
 }
 
 h3{
-    height: .3rem;
     font-size: 14px;
-}
-
-h1.title-container-dark{
-    font-size: 30px;
-}
-h1.title-container-default{
-    font-size: 30px;
-}
-h1.title-container-light{
-    font-size: 30px;
-}
-h1.title-container-blue{
-    font-size: 30px;
-}
-h1.title-container-purple{
-    font-size: 30px;
-}
-h1.title-container-green{
-    font-size: 30px;
-}
-
-.topContainer{
-    border: 2px solid #0d0d0d;
-    border-radius: 15px;
-    height: 2.3rem;
-    width: 90%;
-    padding: 10px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    gap: 0.7rem;
-}
-
-.middleContainer{
-    border: 2px solid #0d0d0d;
-    height: 2.3rem;
-    border-radius: 15px;
-    padding: 10px;
-    display: flex;
-    width: 90%;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    gap: 0.7rem;
-}
-
-.commentsContainer{
-    margin-top: .5rem;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    height: 2.3rem;
-    gap: 1rem;
-    width: 90%;
-    min-width: 26rem;
-    border: 2px solid #0d0d0d;
-    border-radius: 15px;
-    padding: 10px;
 }
 
 .completedTaskButton{
@@ -768,7 +1016,7 @@ strong{
 .commentsArrow{
     padding: 0px;
     margin: 0px;    
-    width: 1rem;
+    width: 100%;
 }
 
 .updateImg{
@@ -797,4 +1045,23 @@ strong{
     flex-direction: row;
     justify-content: center;
     gap: 1.5rem;
+}
+
+.task-description {
+    word-break: break-word;
+    white-space: normal;
+    overflow-wrap: break-word;
+    width: 100%;
+}
+
+.middleContainer-main{
+    display: flex;
+    justify-content:flex-start;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+}
+
+.task-info{
+    width: 100%;
 }
