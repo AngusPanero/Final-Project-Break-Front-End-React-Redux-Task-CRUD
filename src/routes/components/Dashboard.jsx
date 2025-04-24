@@ -244,7 +244,7 @@ const Dashboard = () => {
                                                         <div key={index}>
                                                             <div className={`commentsContainer-${theme}`}>
                                                                 <button className={comment.reviewed ? "completedCommentButton" : "unCompletedCommentButton"} onClick={() => markTaskAsCompletedComment(task._id, comment._id)}>{comment.reviewed ? "✓" : "X"} </button>
-                                                                <p className={`taskComment-${theme}`}>{comment.text}</p>
+                                                                <p className={`taskComment-${theme} task-comment-break`}>{comment.text}</p>
                                                                 <button className="deleteTaskButton" onClick={() => dispatch(deleteCommentRedux({ taskId: task._id, commentId: comment._id })).then(() => dispatch(readTasks()))}>Eliminar</button>
                                                             </div>
                                                         </div>

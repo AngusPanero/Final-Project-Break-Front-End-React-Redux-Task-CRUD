@@ -1047,7 +1047,7 @@ strong{
     gap: 1.5rem;
 }
 
-.task-description {
+.task-description{
     word-break: break-word;
     white-space: normal;
     overflow-wrap: break-word;
@@ -1063,5 +1063,12 @@ strong{
 }
 
 .task-info{
+    width: 100%;
+}
+
+.task-comment-break {
+    word-break: break-word;
+    white-space: normal;
+    overflow-wrap: break-word;
     width: 100%;
 }
