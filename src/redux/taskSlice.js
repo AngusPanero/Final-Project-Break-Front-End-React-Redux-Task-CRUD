@@ -17,7 +17,7 @@ export const postTask = createAsyncThunk( // uso Thunk porque asi se maneja la a
             const token = await currentUser.getIdToken();
             console.log("TOKEN", token);
             
-            const response = await axios.post("http://localhost:2105/create", taskData, {
+            const response = await axios.post("https://final-project-break-back-end-react-redux-na9x.onrender.com/create", taskData, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                     'Content-Type': 'application/json' 
@@ -41,7 +41,7 @@ export const readTasks = createAsyncThunk(
             const token = await currentUser.getIdToken();
             console.log("TOKEN READ", token);
 
-            const response = await axios.get("http://localhost:2105/read", {
+            const response = await axios.get("https://final-project-break-back-end-react-redux-na9x.onrender.com/read", {
                 headers: {
                     Authorization: `Bearer ${token}`,
                     'Content-Type': 'application/json' 
@@ -66,7 +66,7 @@ export const deleteTaskRedux = createAsyncThunk(
             const token = await currentUser.getIdToken()
             console.log("TOKEN", token);
             
-            const response = await axios.delete(`http://localhost:2105/delete/${id}`, {
+            const response = await axios.delete(`https://final-project-break-back-end-react-redux-na9x.onrender.com/delete/${id}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                     'Content-Type': 'application/json' 
@@ -90,7 +90,7 @@ export const updateTaskCompleted = createAsyncThunk(
             const token = await currentUser.getIdToken()
             console.log("TOKEN COMPLETED", token);
 
-            const response = await axios.put(`http://localhost:2105/updateCompletedTask/${id}`, { completed }, {
+            const response = await axios.put(`https://final-project-break-back-end-react-redux-na9x.onrender.com/updateCompletedTask/${id}`, { completed }, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                     'Content-Type': 'application/json' 
@@ -114,7 +114,7 @@ export const updateCommentRedux = createAsyncThunk(
             const token = await currentUser.getIdToken()
             console.log("TOKEN COMMENT", token);
 
-            const response = await axios.put(`http://localhost:2105/updateComment/${taskId}/${commentId}`, { reviewed }, {
+            const response = await axios.put(`https://final-project-break-back-end-react-redux-na9x.onrender.com/updateComment/${taskId}/${commentId}`, { reviewed }, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                     'Content-Type': 'application/json' 
@@ -138,7 +138,7 @@ export const deleteCommentRedux = createAsyncThunk(
             const token = await currentUser.getIdToken()
             console.log("TOKEN DELETE COMMENT", token);
             
-            const response = await axios.delete(`http://localhost:2105/deleteComment/${taskId}/${commentId}`, {
+            const response = await axios.delete(`https://final-project-break-back-end-react-redux-na9x.onrender.com/deleteComment/${taskId}/${commentId}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                     "Content-Type": "aplication/json"
@@ -162,7 +162,7 @@ export const updatedTask = createAsyncThunk(
             const token = await currentUser.getIdToken()
             console.log("TOKEN UPDATE", token);
 
-            const response = await axios.put(`http://localhost:2105/update/${id}`, updateTaskForm, {
+            const response = await axios.put(`https://final-project-break-back-end-react-redux-na9x.onrender.com/update/${id}`, updateTaskForm, {
                 headers : {
                     Authorization: `Bearer ${token}`,
                     'Content-Type': 'application/json'
@@ -187,7 +187,7 @@ export const createContainer = createAsyncThunk(
             const token = await currentUser.getIdToken()
             console.log("TOKEN CONTAINER", token);
             
-            const response = await axios.post("http://localhost:2105/createContainer", containerData,{
+            const response = await axios.post("https://final-project-break-back-end-react-redux-na9x.onrender.com/createContainer", containerData,{
                 headers: {
                     Authorization: `Bearer ${token}`,
                     'Content-Type': 'application/json'
@@ -210,7 +210,7 @@ export const readContainers = createAsyncThunk(
             const token = await currentUser.getIdToken()
             console.log("TOKEN READ CONTAINER", token);
             
-            const response = await axios.get("http://localhost:2105/readContainers", {
+            const response = await axios.get("https://final-project-break-back-end-react-redux-na9x.onrender.com/readContainers", {
                 headers: {
                     Authorization: `Bearer ${token}`,
                     'Content-Type': 'application/json'
@@ -235,7 +235,7 @@ export const deleteContainer = createAsyncThunk(
             const token = await currentUser.getIdToken()
             console.log("TOKEN DELETE CONTAINER", token)
 
-            const response = await axios.delete(`http://localhost:2105/deleteContainer/${id}`, {
+            const response = await axios.delete(`https://final-project-break-back-end-react-redux-na9x.onrender.com/deleteContainer/${id}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                     'Content-Type': 'application/json'

@@ -18,7 +18,7 @@ const Register = () => {
 
         try {
             setLoading(true)
-            const response = await axios.post("http://localhost:2105/register", { email, password })
+            const response = await axios.post("https://final-project-break-back-end-react-redux-na9x.onrender.com/register", { email, password })
 
             if(response.data.success){
                 navigate("/")

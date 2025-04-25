@@ -14,7 +14,7 @@ export const AuthProvider = ({ children }) => {
 
     const logout = async () => {
         setUser(null)
-        await axios.post("http://localhost:2105/logout", {}, { withCredentials: true });
+        await axios.post("https://final-project-break-back-end-react-redux-na9x.onrender.com/logout", {}, { withCredentials: true });
     }
 
     if (loading) return <h1>Cargando sesión...</h1>
